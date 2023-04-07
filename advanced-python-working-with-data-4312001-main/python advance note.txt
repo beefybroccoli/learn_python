@@ -1,0 +1,9 @@
+utility functions
+	
+	any - test if any value in a sequence is True
+	
+	all - test if all of the values in a sequece are True
+	
+	sum - add all of hte valules in a sequence
+	
+	
