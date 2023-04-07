@@ -6,4 +6,6 @@ utility functions
 	
 	sum - add all of hte valules in a sequence
 	
+	continue here
 	
+	https://www.linkedin.com/learning/advanced-python-working-with-data/sorting-data?autoplay=true&resume=false
