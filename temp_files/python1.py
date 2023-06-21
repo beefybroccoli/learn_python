@@ -51,3 +51,8 @@ print(True if len(right) == 0 else pivot < min(right))
 last_index = len(list_a) -1
 for j in range(0, last_index):
     print(list_a[j])
+
+
+# [1, 3, 6, 1, 5, 4, 1, 1, 2, 3, 3, 1, 3, 5, 2, 2, 4]
+# [1, 5, 6, 1, 3, 4, 1, 1, 2, 3, 3, 1, 3, 5, 2, 2, 4]
+list_a.index(4)
