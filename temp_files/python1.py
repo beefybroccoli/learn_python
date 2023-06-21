@@ -47,3 +47,7 @@ print(True if len(right) == 0 else pivot < min(right))
 # print(list_a[:0])
 # print(list_a[0+1:])
 # print(max(list_a[:0]))
+
+last_index = len(list_a) -1
+for j in range(0, last_index):
+    print(list_a[j])
