@@ -57,4 +57,25 @@ for j in range(0, last_index):
 # [1, 5, 6, 1, 3, 4, 1, 1, 2, 3, 3, 1, 3, 5, 2, 2, 4]
 list_a.index(4)
 
-#=====================
+print('=====================')
+
+def dot_product(lst_a, lst_b):
+    and_list = [elt_a * elt_b for (elt_a, elt_b) in zip(lst_a, lst_b)]
+    return 0 if sum(and_list)% 2 == 0 else 1
+
+H = [[0,1,0,1],[1,0,0,0],[1,0,1,1]]
+
+J = [1,1,1,0]
+
+temp_1 = dot_product([0,1,0,1],J)
+print(temp_1)
+
+for element_list in H:
+    print(dot_product(element_list, J))
+
+print ([dot_product(element_list, J) for element_list in H])
+# A1 = [[0,1,0,1],[1,0,0,0],[1,0,1,1]]
+# b1 = [1,1,1,0]
+# temp_1 = dot_product(A1,b1)
+# print(temp_1)
+
