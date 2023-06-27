@@ -98,13 +98,15 @@ print('Inserting 1, 5, 2, 4')
 # min_heap = [2,5], min elment = 2
 # max_heap = [1], max element = 1
 
+# afer insert 4
+# min_heap = [2,5], min elment = 2
+# max_heap = [1,4], max element = 4
+
+# after fixing max_heap
 # min_heap = [2,5], min elment = 2
 # max_heap = [4,1], max element = 4
 
-# min_heap = [2,5], min elment = 2
-# max_heap = [4,1], max element = 4
-
-# after insterting, fixing heaping and modify to fit rules
+# after modify to fit rules
 # min_heap = [4,5], min elment = 4
 # max_heap = [2,1], max element = 2
 
