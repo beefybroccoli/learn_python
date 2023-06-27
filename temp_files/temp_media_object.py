@@ -35,15 +35,27 @@ print('Inserting 1')
 # min_heap = [1]
 # max_heap = []
 # [ [] [1]  ]
-# median is (n-1) element
+
+# (n - 1)/2th element
+# (1-1)/2th elment
+# (0)  /2th element
+
 median = 1
 
 print('Inserting 1, 5')
 # even, size = 2
 # min_heap = [1]
 # max_heap = [5]
-# [ [5] [1] ]
-# (1st element + 2nd element) / 2
+# modify to meet the rules
+# min_heap = [5]
+# max_heap = [1]
+
+# [ min_heap max_heap ]
+# [ [1] [5] ]
+
+# ( (n/2 -1) element + (n/2) element) / 2
+# ( (1 -1) element + (2/2) element) / 2
+# (0th element + 1th element) / 2
 # (1 + 5)/2 = 3
 median = 3
 
@@ -54,42 +66,237 @@ median = 3
   
 print('Inserting 1, 5, 2')
 # odd, size = 3
-# min_heap = [1], min element = 1
-# max_heap = [5], max element = 5
-# before insert [ [1] [5] ]
-# after  insert [ [5] [1,2] ]
+# before insert 
+# min_heap = [5], min elment = 5
+# max_heap = [1], max element = 1
+
+# after  insert
+# min_heap = [2,5], min elment = 2
+# max_heap = [1], max element = 1
+
+# [ min_heap max_heap ]
+# [ [2,5] [1] ]
+
 # (n-1) / 2th element
-# (3-1) / 1 = 2
-# median = 2
+# (3-1) / 2th element
+# 2 / 2th element
+# 2 / 1 = 2
+median = 2
+
+
+
+
+
+
+
+
+
 
 print('Inserting 1, 5, 2, 4')
 # even, size = 4
-# (1st element + 2nd element) / 2
-# (1 + 5 )/2 = 3
+# before insert 
+# min_heap = [2,5], min elment = 2
+# max_heap = [1], max element = 1
+
+# min_heap = [2,5], min elment = 2
+# max_heap = [4,1], max element = 4
+
+# min_heap = [2,5], min elment = 2
+# max_heap = [4,1], max element = 4
+
+# after insterting, fixing heaping and modify to fit rules
+# min_heap = [4,5], min elment = 4
+# max_heap = [2,1], max element = 2
+
+# [ min_heap max_heap ]
+# [ [4,5] [2,1] ]
+
+# ( (n/2 -1) element + (n/2) element) / 2
+# ( (4/2 -1) element + (4/2) element) / 2
+# ( 1st element      + 2th element )  / 2
+# ( 5                + 2 ) / 2 = 7    / 2 = 3
+# ??????????? should be 3.5, not 3??????????????????????????????????
 median = 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 print('Inserting 1, 5, 2, 4, 18')
 # odd, size = 5
-# (n-1)/2th element
-# (5-1)/5 = 4/5 = 4
+
+# before insert
+# min_heap = [4,5], min elment = 4
+# max_heap = [2,1], max element = 2
+
+# after insert
+# min_heap = [4,5,18], min elment = 4
+# max_heap = [2,1], max element = 2
+
+# after insterting, fixing heaping and modify to fit rules
+# min_heap = [4,5,18], min elment = 4
+# max_heap = [2,1], max element = 2
+
+# [ min_heap max_heap]
+# [ [4,5,18] [2,1]  ]
+
+# (n-1) / 2th element
+# (5-1) / 1 
+# 4     / 1 = 4
 median = 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 print('Inserting 1, 5, 2, 4, 18, -4')
 # even, size = 6
-# (1st element + 2nd element) / 2
-# (1 + 5) /2 = 3
+
+# before insert
+# min_heap = [4,5,18], min elment = 4
+# max_heap = [2,1], max element = 2
+
+# after insert
+# min_heap = [4,5,18], min elment = 4
+# max_heap = [2,1], max element = 2
+
+# min_heap = [4,5,18], min elment = 4
+# max_heap = [2,1,-4], max element = 2
+
+# after fixing heaps, and modify to fit rules
+# min_heap = [4,5,18], min elment = 4
+# max_heap = [2,1,-4], max element = 2
+
+# [ min_heap max_heap ]
+# [ [4,5,18] [2,1,-4] ]
+
+# ( (n/2 -1) element + (n/2) element) / 2
+# ( (6/2 -1) element + (6/2) element) / 2
+# ( (3   -1) element + (3)   element) / 2
+# ( 2th element      + 3rd element)   / 2
+#?????????????????????????????????????????????
+# (1 + -4) /2 = 3
 median = 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 print('Inserting 1, 5, 2, 4, 18, -4, 7')
 # odd, size = 7
-# (n-1)/2th element
-# (7-1)/5 = 6/5 = 
+
+# before insert
+# min_heap = [4,5,18], min elment = 4
+# max_heap = [2,1,-4], max element = 2
+
+# after insert
+# min_heap = [4,5,18,7], min elment = 4
+# max_heap = [2,1,-4], max element = 2
+
+# after fixing heap, verify it meets the rule
+# min_heap = [4,5,18,7], min elment = 4
+# max_heap = [2,1,-4], max element = 2
+
+# [ min_heap max_heap ]
+# [ [4,5,18,7] [2,1,-4] ]
+
+# ??????????????????????????????????????????
+# (n-1) / 2th element
+# (7-1) / 1 
+# 6     / 1 = 7 
 median = 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ##??????????????????????????????????
 print('Inserting 1, 5, 2, 4, 18, -4, 7, 9')
 # even, size = 8
-# (1st element + 2nd element) / 2
+
+# before insert
+
+# min_heap = [4,5,18,7], min elment = 4
+# max_heap = [2,1,-4], max element = 2
+
+# after insert
+
+# min_heap = [4,5,18,7], min elment = 4
+# max_heap = [2,1,-4,9], max element = 2
+
+# after fixing max_heap
+# min_heap = [4,5,18,7], min elment = 4
+# max_heap = [2,9,-4,1], max element = __
+
+# after fixing max_heap
+# min_heap = [4,5,18,7], min elment = 4
+# max_heap = [9,2,-4,1], max element = 9
+
+# after fixing max_heap
+# min_heap = [4,5,18,7,9], min elment = 4
+# max_heap = [2,-4,1], max element = 9
+
+# [ mean_heap max_heap ]
+# [ [4,5,18,7,9] [2,-4,1] ]
+
+# ( (n/2 -1) element + (n/2) element) / 2
+# ( (8/2 -1) element + (8/2) element) / 2
+# ( (4   -1) element + (4th) element) / 2
+# ( 3th element + 4th element) / 2
+# ??????????????????????????????????????????????????
+# (7 + 9) / 2 = 8.0
 median = 4.5
 
 

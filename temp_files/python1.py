@@ -79,3 +79,9 @@ print ([dot_product(element_list, J) for element_list in H])
 # temp_1 = dot_product(A1,b1)
 # print(temp_1)
 
+print("===========================")
+
+print((-1+3)/2)
+print((3+2)/2)
+print((2+1)/2)
+print((7+9)/2)
