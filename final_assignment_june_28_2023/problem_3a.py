@@ -13,21 +13,21 @@ def returnAllCommonElements(list_of_lists):
             else:
                 my_dict[element]=1
 
-    print(my_dict.items())
+    # print(my_dict.items())
     list_key = list(my_dict.items())
-    print(list_key)
+    # print(list_key)
 
     sorted_list_key = sorted(list_key,key=lambda x:x[1])
-    print(sorted_list_key)
+    # print(sorted_list_key)
 
     max = sorted_list_key[len(sorted_list_key)-1][1]
-    print('max = ', max)
+    # print('max = ', max)
 
     filter_sorted_list_key = list(filter(lambda element: (element[1]==max and element[1] == len(list_of_lists)), sorted_list_key))
-    print(filter_sorted_list_key)
+    # print(filter_sorted_list_key)
 
     result = list(map(lambda element: (element[0]), filter_sorted_list_key))
-    print('result = ', result)
+    # print('result = ', result)
     
     return result
 

@@ -9,22 +9,16 @@ def findMinAbsDiff(a):
         index += 1
         list_a.append([element,index])
     
-    # print(list_a)
-
     sorted_by_value = sorted(list_a,key=lambda x:x[0])
-
-    # print(sorted_by_value)
 
     low = 0
     high = 0
     diff = max(a)
     for i in range (0, len(a)-1):
-        # print(sorted_by_value[i], sorted_by_value[i+1])
         if abs(sorted_by_value[i+1][0] - sorted_by_value[i][0]) < diff:
             low = sorted_by_value[i][1]
             high = sorted_by_value[i+1][1]
             diff = abs(sorted_by_value[i+1][0] - sorted_by_value[i][0])
-    # print((high,low))
     return (high,low)
 
 #================================================================
