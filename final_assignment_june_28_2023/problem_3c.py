@@ -3,11 +3,27 @@
 #assume that each individual list aj is sorted.
 
 def findAllCommonElementsSorted(list_of_lists):
+    
+    # if size of list is 1, it is already sorted by common element
+    if len(list_of_lists) == 1:
+        return list_of_lists[0]
+
+    # if size of lise is 2, it needed to be filter through help
+    if len(list_of_lists) == 2:
+        return helper(list_of_lists)
+
+    # otherwise return the function into half of its input size
+    else:
+        mid = len(list_of_lists) // 2
+        return findAllCommonElementsSorted([findAllCommonElementsSorted(list_of_lists[:mid]), findAllCommonElementsSorted(list_of_lists[mid:])])
+
+def helper(list_of_lists):
 
     # your code here
     result = []
 
-    list1 = [ [-3, 1, 3, 4, 5, 8], [-8, 2, 2, 3, 4, 5, 10] ]
+    list1 = list_of_lists[0]
+    list2 = list_of_lists[1]
 
     i = 0
     j = 0
@@ -23,9 +39,11 @@ def findAllCommonElementsSorted(list_of_lists):
         # print('i = ', i)
         # print('j = ', j)
         # print("========")
-    print('resullt = ', result)
+    # print('resullt = ', result)
     return result
 
+# list_size_2 = [ [1, 3, 5], [4, 5, 7]]
+# print(helper(list_size_2))
 
 print(' -- Test 1 --')
 list1 = [ [-3, 1, 3, 4, 5, 8], [-8, 2, 2, 3, 4, 5, 10] ]
@@ -33,6 +51,7 @@ out1 = findAllCommonElementsSorted(list1)
 print(out1)
 assert(out1 == [3, 4, 5])
 print('passed')
+
 print(' -- Test 2 --')
 list2 = [ [1, 3, 5], [4, 5, 7], [1,  5, 8], [-4, 3, 5], [1, 1, 5], [1, 5, 5] ]
 out2 = findAllCommonElementsSorted(list2)
@@ -47,6 +66,7 @@ out3 = findAllCommonElementsSorted(list3)
 print(out3)
 assert out3 == [-2, 1, 4]
 print('passed')
+
 print('-- Test 4 --')
 list4 = [ [1, 2, 2, 3, 4,  6,  6, 7,  7], [3, 4, 8, 8, 9, 9], [0, 1, 4, 8, 12,18,  56, 67], [0, 0, 0, 1, 1, 3, 5, 6,  7, 8]]
 out4= findAllCommonElementsSorted(list4)
