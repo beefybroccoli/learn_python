@@ -1,10 +1,6 @@
 def findCommonSorted(list1, list2):
     # your code here
     result = []
-
-    # list1 = [ -2, 3, 5, 10, 12,  15, 18]
-    # list2 = [-10, -5, -2, 1, 4, 5, 11, 18]
-
     i = 0
     j = 0
     while (i < len(list1) and j < len(list2)):
@@ -16,10 +12,6 @@ def findCommonSorted(list1, list2):
             result.append(list1[i])
             j += 1
             i += 1
-        # print('i = ', i)
-        # print('j = ', j)
-        # print("========")
-    print('resullt = ', result)
     return result
 
 print('--Test 1--')

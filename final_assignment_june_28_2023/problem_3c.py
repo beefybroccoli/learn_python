@@ -51,7 +51,6 @@ out1 = findAllCommonElementsSorted(list1)
 print(out1)
 assert(out1 == [3, 4, 5])
 print('passed')
-
 print(' -- Test 2 --')
 list2 = [ [1, 3, 5], [4, 5, 7], [1,  5, 8], [-4, 3, 5], [1, 1, 5], [1, 5, 5] ]
 out2 = findAllCommonElementsSorted(list2)
@@ -66,7 +65,6 @@ out3 = findAllCommonElementsSorted(list3)
 print(out3)
 assert out3 == [-2, 1, 4]
 print('passed')
-
 print('-- Test 4 --')
 list4 = [ [1, 2, 2, 3, 4,  6,  6, 7,  7], [3, 4, 8, 8, 9, 9], [0, 1, 4, 8, 12,18,  56, 67], [0, 0, 0, 1, 1, 3, 5, 6,  7, 8]]
 out4= findAllCommonElementsSorted(list4)
