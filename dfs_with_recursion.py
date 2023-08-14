@@ -168,6 +168,12 @@ assert(dfs_tree_parents[4] == 3), 'Fail: node 4 parent must be 3'
 
 print('Success-- DFS parents are set correctly.')
 
+print("===============")
+non_trivial_back_edges = [(i,j) for (i,j) in dfs_back_edges if dfs_tree_parents[i] != j]
+print('Back edges are')
+for (i,j) in non_trivial_back_edges:
+    print(f'{(i,j)}')
+print("===============")
 
 # print()
 # # Filter out all trivial back eddges (i,j)  where j is simply the parent of i.
