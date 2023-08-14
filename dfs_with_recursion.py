@@ -74,12 +74,12 @@ class UndirectedGraph:
         
         
         current_verticy = i
-        temp_children = list(self.get_neighboring_vertices(current_verticy))
-        temp_children.sort()
+        adjacent_verticies = list(self.get_neighboring_vertices(current_verticy))
+        adjacent_verticies.sort()
         print("-------------------")
         print(f'debug, parent = {dfs_tree_parent[current_verticy]}')
         print(f'debug, current_verticy = {current_verticy}')
-        print("debug, temp_children = ", temp_children)
+        print("debug, adjacent_verticies = ", adjacent_verticies)
         print(f'debug, discovery_times = {discovery_times}')
         print(f'debug, finish_times = {finish_times}')
         print("")
@@ -97,11 +97,14 @@ class UndirectedGraph:
             print("base case - pass")
         else:
             counter = 0
-            for element in temp_children:
+            for element in adjacent_verticies:
                 if(discovery_times[element] == None):
                     dfs_tree_parent[element] = current_verticy
                     self.dfs_visit(element, dfs_timer, discovery_times, finish_times, dfs_tree_parent, dfs_back_edges)
-                    # counter = counter + 1
+                elif(element != dfs_tree_parent[current_verticy]):
+                    dfs_back_edges.append((current_verticy,element))
+                    print(f'dfs_back_edges = {dfs_back_edges}')
+                    
             
             if counter == 0:
                 dfs_timer.increment()
@@ -169,10 +172,23 @@ assert(dfs_tree_parents[4] == 3), 'Fail: node 4 parent must be 3'
 print('Success-- DFS parents are set correctly.')
 
 print("===============")
+print('Back edges are')
+print(f'dfs_tree_parents = {dfs_tree_parents}')
+print(f'dfs_back_edges = {dfs_back_edges}')
+# non_trivial_back_edges = [(i,j) for (i,j) in dfs_back_edges if dfs_tree_parents[i] != j]
+# Filter out all trivial back eddges (i,j)  where j is simply the parent of i.
+# such back edges occur because we are treating an undirected edge as two directed edges
+# in either direction.
+# ------------
 non_trivial_back_edges = [(i,j) for (i,j) in dfs_back_edges if dfs_tree_parents[i] != j]
 print('Back edges are')
 for (i,j) in non_trivial_back_edges:
     print(f'{(i,j)}')
+    
+    
+assert len(non_trivial_back_edges) == 2, f'Fail: There must be 2 non trivial back edges -- your code reports {len(non_trivial_back_edges)}. Note that (4,0) and (4,2) are the only non trivial backedges'
+assert (4,2) in non_trivial_back_edges, '(4,2) must be a backedge that is non trivial'
+assert (4,0) in non_trivial_back_edges, '(4,3) must be a non-trivial backedges'
 print("===============")
 
 # print()
