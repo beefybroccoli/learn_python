@@ -36,7 +36,6 @@ class UndirectedGraph:
     # are neighbors of the
     # vertex i
     def get_neighboring_vertices(self, i):
-        print(f'debug, i = {i}')
         assert 0 <= i < self.n
         return self.adj_list[i]
     
@@ -78,7 +77,8 @@ class UndirectedGraph:
         temp_children = list(self.get_neighboring_vertices(current_verticy))
         temp_children.sort()
         print("-------------------")
-        print(f'parent = {current_verticy}')
+        print(f'parent = {dfs_tree_parent[current_verticy]}')
+        print(f'current_verticy = {current_verticy}')
         print("debug, temp_children = ", temp_children)
         print(f'discovery_times = {discovery_times}')
         print("")
@@ -89,9 +89,9 @@ class UndirectedGraph:
             print("already visited")
         else:
             for element in temp_children:
-                current_verticy = element
-                if(discovery_times[current_verticy] == None):
-                    self.dfs_visit(current_verticy, dfs_timer, discovery_times, finish_times, dfs_tree_parent, dfs_back_edges)
+                if(discovery_times[element] == None):
+                    dfs_tree_parent[element] = current_verticy
+                    self.dfs_visit(element, dfs_timer, discovery_times, finish_times, dfs_tree_parent, dfs_back_edges)
 
     
         # ===================================================================================================
@@ -124,6 +124,7 @@ print(g.adj_list)
 # Test DFS visit
 discovery_times = [None]*5; finish_times = [None]*5; dfs_tree_parents = [None]*5; dfs_back_edges = []
 g.dfs_visit(0, DFSTimeCounter(), discovery_times, finish_times, dfs_tree_parents, dfs_back_edges )
+print(f'dfs_tree_parents = {dfs_tree_parents}')
 
 # # for i in range(5):
 # #     print(f'{i} \t {discovery_times[i]}\t\t {finish_times[i]}')
