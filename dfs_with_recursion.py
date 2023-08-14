@@ -101,7 +101,7 @@ class UndirectedGraph:
                 if(discovery_times[element] == None):
                     dfs_tree_parent[element] = current_verticy
                     self.dfs_visit(element, dfs_timer, discovery_times, finish_times, dfs_tree_parent, dfs_back_edges)
-                elif(element != dfs_tree_parent[current_verticy]):
+                elif(element != dfs_tree_parent[current_verticy] and discovery_times[element] < discovery_times[current_verticy]):
                     dfs_back_edges.append((current_verticy,element))
                     print(f'dfs_back_edges = {dfs_back_edges}')
                     
