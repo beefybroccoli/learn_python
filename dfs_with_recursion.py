@@ -69,10 +69,7 @@ class UndirectedGraph:
         dfs_timer.increment()
         # your code here
         # ----------------------------------------
-        import collections
-        stack = collections.deque([])
-        
-        
+                
         current_verticy = i
         adjacent_verticies = list(self.get_neighboring_vertices(current_verticy))
         adjacent_verticies.sort()
@@ -83,15 +80,7 @@ class UndirectedGraph:
         print(f'debug, discovery_times = {discovery_times}')
         print(f'debug, finish_times = {finish_times}')
         print("")
-
-        # pending delete -----------------------------------
-        # if len(temp_children) == 0:
-        #     dfs_timer.increment()
-        #     finish_times[current_verticy] = dfs_timer.get()
-        #     print("base case - pass")
-        # pending delete -----------------------------------
-
-
+        
         if discovery_times[i] != None and discovery_times[i] > dfs_timer.get() + 1:
             print("already visited")
             print("base case - pass")
