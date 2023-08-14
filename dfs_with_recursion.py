@@ -105,7 +105,7 @@ class UndirectedGraph:
             
             if counter == 0:
                 dfs_timer.increment()
-                finish_times[current_verticy] = dfs_timer.get()
+                finish_times[current_verticy] = dfs_timer.get() - 1
                 print(f'debug, finish_times = {finish_times}')
                 print("")
 
@@ -142,19 +142,32 @@ discovery_times = [None]*5; finish_times = [None]*5; dfs_tree_parents = [None]*5
 g.dfs_visit(0, DFSTimeCounter(), discovery_times, finish_times, dfs_tree_parents, dfs_back_edges )
 print(f'dfs_tree_parents = {dfs_tree_parents}')
 
-# # for i in range(5):
-# #     print(f'{i} \t {discovery_times[i]}\t\t {finish_times[i]}')
+# for i in range(5):
+#     print(f'{i} \t {discovery_times[i]}\t\t {finish_times[i]}')
 
-# assert(discovery_times[0] == 0), f'Fail: Node 0 expected discovery time must be 0'
-# assert(discovery_times[1] == 1), f'Fail: Node 1 expected discovery is 1'
-# assert(discovery_times[2] == 3), f'Fail: Node 2 expected discovery is 3'
-# assert(discovery_times[3] == 4),f'Fail: Node 3 discovery time expected value is 4'
-# assert(discovery_times[4] == 5),f'Fail: Node 4 discovery time expected value is 5'
+assert(discovery_times[0] == 0), f'Fail: Node 0 expected discovery time must be 0'
+assert(discovery_times[1] == 1), f'Fail: Node 1 expected discovery is 1'
+assert(discovery_times[2] == 3), f'Fail: Node 2 expected discovery is 3'
+assert(discovery_times[3] == 4),f'Fail: Node 3 discovery time expected value is 4'
+assert(discovery_times[4] == 5),f'Fail: Node 4 discovery time expected value is 5'
 
-# assert(finish_times[1] == 2), f'Fail: Node 1 finish time expected value is 2 (are you incrementing counter before you return from dfs_visit function and before recording finish times)'
-# assert(finish_times[2] == 8), f'Fail: Node 2 finish time expected value is 8'
-# assert(finish_times[3] == 7), f'Fail: Node 3 finish time expected value is 7'
-# assert(finish_times[4] == 6), f'Fail: Node 4 finish time expected value is 6'
+assert(finish_times[1] == 2), f'Fail: Node 1 finish time expected value is 2 (are you incrementing counter before you return from dfs_visit function and before recording finish times)'
+assert(finish_times[2] == 8), f'Fail: Node 2 finish time expected value is 8'
+assert(finish_times[3] == 7), f'Fail: Node 3 finish time expected value is 7'
+assert(finish_times[4] == 6), f'Fail: Node 4 finish time expected value is 6'
+
+print('Node\t DFS-Tree-Parent')
+for i in range(5):
+    print(f'{i} \t {dfs_tree_parents[i]}')
+
+assert(dfs_tree_parents[0] == None), 'Fail: node 0 cannot have a parent (must be root)'
+assert(dfs_tree_parents[1] == 0), 'Fail: node 1 parent must be 0'
+assert(dfs_tree_parents[2] == 0), 'Fail: node 2 parent must be 0'
+assert(dfs_tree_parents[3] == 2), 'Fail: node 3 parent must be 2'
+assert(dfs_tree_parents[4] == 3), 'Fail: node 4 parent must be 3'
+
+print('Success-- DFS parents are set correctly.')
+
 
 # print()
 # # Filter out all trivial back eddges (i,j)  where j is simply the parent of i.
