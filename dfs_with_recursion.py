@@ -125,10 +125,15 @@ class UndirectedGraph:
         non_trivial_back_edges = [(i,j) for (i,j) in dfs_back_edges if dfs_tree_parents[i] != j]
         return (dfs_tree_parents, non_trivial_back_edges, discovery_times, finish_times)
 
-    def num_connected_components(g): # g is an UndirectedGraph class
-        # your code here
-        # -----------------------------------------
-        pass
+def num_connected_components(g): # g is an UndirectedGraph class
+    # your code here
+    # -----------------------------------------
+    (dfs_tree_parents, non_trivial_back_edges, discovery_times, finish_times) = g.dfs_traverse_graph()
+    count = 0
+    for element in dfs_tree_parents:
+        if element == None:
+            count = count + 1
+    return count
 
 
 # ==================================================================================================
@@ -205,6 +210,9 @@ print(f'non_trivial_back_edges = {non_trivial_back_edges}')
 print(f'discovery_times = {discovery_times}')
 print(f'finish_times = {finish_times}')
 
+assert num_connected_components(g) == 1, f' Test A failed: g must have 1 connected component. Your code returns {num_connected_components(g)}'
+
+
 print("-------------------run g2 undirected graph")
 g2 = UndirectedGraph(7)
 g2.add_edge(0,1)
@@ -216,6 +224,8 @@ g2.add_edge(3,4)
 g2.add_edge(5,6)
 (dfs_tree_parents, non_trivial_back_edges, discovery_times, finish_times) = g2.dfs_traverse_graph()
 
+assert num_connected_components(g2) == 2, f' Test B failed: g2 must have 2 connected components. Your code returns {num_connected_components(g2)}'
+
 print('---------------------run g3 undirected graph')
 g3 = UndirectedGraph(8)
 g3.add_edge(0,1)
@@ -226,3 +236,8 @@ g3.add_edge(2,4)
 g3.add_edge(3,4)
 g3.add_edge(5,6)
 (dfs_tree_parents, non_trivial_back_edges, discovery_times, finish_times) = g3.dfs_traverse_graph()
+
+assert num_connected_components(g3) == 3, f' Test C failed: g3 must have 3 connected components. Your code returns {num_connected_components(g3)}'
+
+g3.add_edge(7,5)
+assert num_connected_components(g3) == 2, f' Test D failed: g3 must now have 2 connected components. Your code returns {num_connected_components(g3)}'
