@@ -43,8 +43,15 @@ class DisjointForests:
         assert 0 <= j < self.n
         assert self.parents[j] != None, 'You are calling find on an element that is not part of the family yet. Please call make_set first.'
         # your code here
-        # --------------------
-        return self.parents[j]
+        # -------------------- traverse until the parent node is found----------------------
+        # if the element does not exist
+        #   call makeset
+        
+        #   base case for recursion
+        if self.parents[j] == j:
+            return self.parents[j]
+        #   find(self, value) again until reach root node
+        return self.find(self.parents[j])
     
     # Function : union
     # Compute union of j1 and j2
@@ -78,13 +85,11 @@ for i in range(10):
     d.make_set(i)
 
 # for i in range(10):
-    # print(f'd.parents[{i}] = {d.parents[i]}, d.rank[{i}] = {d.rank[i]}')
+#     print(f'd.parents[{i}] = {d.parents[i]}, d.rank[{i}] = {d.rank[i]}')
 
 
 for i in range(10):
     assert d.find(i) == i, f'Failed: Find on {i} must return {i} back'
-
-
 
 d.union(0,1)
 d.union(2,3)
@@ -97,7 +102,6 @@ assert((d.get_rank(0) == 2 and d.get_rank(1) == 1) or
 assert((d.get_rank(2) == 2 and d.get_rank(3) == 1) or 
        (d.get_rank(3) == 2 and d.get_rank(2) == 1)), 'one of the nodes 2 or 3 must have rank 2'
 
-
 d.union(3,4)
 assert(d.find(2) == d.find(4)), '2 and 4 must be in the same set in the family.'
 
@@ -108,6 +112,13 @@ d.union(0,6)
 
 assert(d.find(6) == d.find(1)), '1 and 6 must be in the same set in the family'
 assert(d.find(7) == d.find(4)), '7 and 4 must be in the same set in the family'
+
+for i in range(10):
+    print(f'd.parents[{i}] = {d.parents[i]}, d.rank[{i}] = {d.rank[i]}')
+
+print(f'max rank = {max(d.rank)}')
+
+
 print('All tests passed: 10 points.')
 
 print("-----------------------Problem 2-----------------------------------")
@@ -125,9 +136,9 @@ class UndirectedGraph:
         self.vertex_data = [None]*self.n
        
         
-    def set_vertex_data(self, j, dat):
+    def set_vertex_data(self, j, data):
         assert 0 <= j < self.n
-        self.vertex_data[j] = dat
+        self.vertex_data[j] = data
         
     def get_vertex_data(self, j):
         assert 0 <= j < self.n
@@ -151,7 +162,7 @@ We have previously seen  how to use DFS to find maximal strongly connected compo
   - We will consider only those edges $(i,j)$ whose weights are less than or equal to a threshold $W$ provided by the user.
   - Edges with weights above this threshold are not considered.
   
-Design an algorithm to compute all the maximal strongly connected components for all eeges with threshold $W$ using the union-find data structure. What is the running time of your algorithm. Note that this is manually graded answer : you can compare your solution against our solution provided at the end of this assignment.
+Design an algorithm to compute all the maximal strongly connected components for all edges with threshold $W$ using the union-find data structure. What is the running time of your algorithm. Note that this is manually graded answer : you can compare your solution against our solution provided at the end of this assignment.
 """
 
 def compute_scc(g, W):
@@ -159,6 +170,28 @@ def compute_scc(g, W):
     # Next compute the strongly connected components using the disjoint forest data structure
     d = DisjointForests(g.n)
     # your code here
+    # ---------------------
+    for edge in g.edges:
+        if edge[2] <= W:
+            print(f'edge = {edge}')
+        
     
     # extract a set of sets from d
-    return d.dictionary_of_sets()    
+    # return d.dictionary_of_sets()
+    pass
+
+g3 = UndirectedGraph(8)
+g3.add_edge(0,1,0.5)
+g3.add_edge(0,2,1.0)
+g3.add_edge(0,4,0.5)
+g3.add_edge(2,3,1.5)
+g3.add_edge(2,4,2.0)
+g3.add_edge(3,4,1.5)
+g3.add_edge(5,6,2.0)
+g3.add_edge(5,7,2.0)
+
+# for index in range(g3.n):
+#     g3.vertex_data[index] = index
+#     print(f'vertex = {g3.vertex_data[index]}')
+
+# compute_scc(g3,2.0)
