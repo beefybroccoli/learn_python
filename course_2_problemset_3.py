@@ -123,7 +123,7 @@ print(f'd.dictionary_of_sets() return {d.dictionary_of_sets()}')
 
 print('All tests passed: 10 points.')
 
-print("-----------------------Problem 2-----------------------------------")
+print("-----------------------Problem 2A-----------------------------------")
 
     
 class UndirectedGraph:
@@ -177,9 +177,9 @@ def compute_scc(g, W):
     #         print(f'edge = {edge}')
 
     for index in range(g.n):
-        print(f'g.edges[{index}] = {g.edges[index]}')
+        # print(f'g.edges[{index}] = {g.edges[index]}')
         d.make_set(index)
-        print(f'd.parents[{index}] = {d.parents[index]}, d.rank[{index}] = {d.rank[index]}')
+        # print(f'd.parents[{index}] = {d.parents[index]}, d.rank[{index}] = {d.rank[index]}')
     
     for edge in g.edges:
         if edge[2] <= W:
@@ -187,10 +187,10 @@ def compute_scc(g, W):
             d.union(edge[0], edge[1])
             index_0 = edge[0]
             index_1 = edge[1]
-            print(f'd.parents[{index_0}] = {d.parents[index_0]}, d.rank[{index_0}] = {d.rank[index_0]}')
-            print(f'd.parents[{index_1}] = {d.parents[index_1]}, d.rank[{index_1}] = {d.rank[index_1]}')
+            # print(f'd.parents[{index_0}] = {d.parents[index_0]}, d.rank[{index_0}] = {d.rank[index_0]}')
+            # print(f'd.parents[{index_1}] = {d.parents[index_1]}, d.rank[{index_1}] = {d.rank[index_1]}')
 
-    print(f'd.dictionary_of_sets return {d.dictionary_of_sets()}')
+    # print(f'd.dictionary_of_sets return {d.dictionary_of_sets()}')
     return d.dictionary_of_sets()
 
     # extract a set of sets from d
@@ -206,8 +206,6 @@ g3.add_edge(2,4,2.0)
 g3.add_edge(3,4,1.5)
 g3.add_edge(5,6,2.0)
 g3.add_edge(5,7,2.0)
-
-# compute_scc(g3,2.0)
 
 res = compute_scc(g3, 2.0)
 print('SCCs with threshold 2.0 computed by your code are:')
@@ -241,3 +239,6 @@ for (k, s) in res2.items():
         assert s == set([7]), '{7} should be an SCC with just a single node.'
         
 print('All tests passed: 10 points')
+
+
+print("-----------------------Problem 2B-----------------------------------")
