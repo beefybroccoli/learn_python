@@ -241,3 +241,38 @@ assert num_connected_components(g3) == 3, f' Test C failed: g3 must have 3 conne
 
 g3.add_edge(7,5)
 assert num_connected_components(g3) == 2, f' Test D failed: g3 must now have 2 connected components. Your code returns {num_connected_components(g3)}'
+
+print('--------------------- node cycles=============================')
+
+def find_all_nodes_in_cycle(g): # g is an UndirectedGraph class
+    set_of_nodes = set()
+    # your code here
+    pass
+
+#this is the example that we had for the problem.
+g4 = UndirectedGraph(8)
+g4.add_edge(0,1)
+g4.add_edge(0,2)
+g4.add_edge(0,4)
+g4.add_edge(2,3)
+g4.add_edge(2,4)
+g4.add_edge(3,4)
+g4.add_edge(5,6)
+g4.add_edge(5,7)
+(dfs_tree_parents, non_trivial_back_edges, discovery_times, finish_times) = g3.dfs_traverse_graph()
+print(f'g4.adj_ist = {g4.adj_list}')
+
+print("````````````````````````````````````````````")
+
+g5 = UndirectedGraph(8)
+g5.add_edge(0,1)
+g5.add_edge(0,2)
+g5.add_edge(0,4)
+g5.add_edge(2,3)
+g5.add_edge(2,4)
+g5.add_edge(3,4)
+g5.add_edge(5,6)
+g5.add_edge(5,7)
+g5.add_edge(6,7)
+(dfs_tree_parents, non_trivial_back_edges, discovery_times, finish_times) = g5.dfs_traverse_graph()
+print(f'g4.adj_ist = {g5.adj_list}')
