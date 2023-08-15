@@ -83,7 +83,7 @@ class DisjointForests:
 # =================================================================
 print("-----------------------Problem 1-----------------------------------")
 d = DisjointForests(10)
-for i in range(2,10,1):
+for i in range(3,10,1):
     d.make_set(i)
 
 # for i in range(10):
