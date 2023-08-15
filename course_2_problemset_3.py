@@ -172,10 +172,6 @@ def compute_scc(g, W):
     d = DisjointForests(g.n)
     # your code here
     # ---------------------
-    # for edge in g.edges:
-    #     if edge[2] <= W:
-    #         print(f'edge = {edge}')
-
     for index in range(g.n):
         # print(f'g.edges[{index}] = {g.edges[index]}')
         d.make_set(index)
@@ -193,10 +189,9 @@ def compute_scc(g, W):
     # print(f'd.dictionary_of_sets return {d.dictionary_of_sets()}')
     return d.dictionary_of_sets()
 
-    # extract a set of sets from d
-    # return d.dictionary_of_sets()
-    pass
 
+
+#--------------------------------------------------------
 g3 = UndirectedGraph(8)
 g3.add_edge(0,1,0.5)
 g3.add_edge(0,2,1.0)
