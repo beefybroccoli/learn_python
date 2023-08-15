@@ -73,13 +73,13 @@ class UndirectedGraph:
         current_verticy = i
         adjacent_verticies = list(self.get_neighboring_vertices(current_verticy))
         adjacent_verticies.sort()
-        print("-------------------")
-        print(f'debug, parent = {dfs_tree_parent[current_verticy]}')
-        print(f'debug, current_verticy = {current_verticy}')
-        print("debug, adjacent_verticies = ", adjacent_verticies)
-        print(f'debug, discovery_times = {discovery_times}')
-        print(f'debug, finish_times = {finish_times}')
-        print("")
+        # print("-------------------")
+        # print(f'debug, parent = {dfs_tree_parent[current_verticy]}')
+        # print(f'debug, current_verticy = {current_verticy}')
+        # print("debug, adjacent_verticies = ", adjacent_verticies)
+        # print(f'debug, discovery_times = {discovery_times}')
+        # print(f'debug, finish_times = {finish_times}')
+        # print("")
         
         if discovery_times[i] != None and discovery_times[i] > dfs_timer.get() + 1:
             print("already visited")
@@ -92,14 +92,14 @@ class UndirectedGraph:
                     self.dfs_visit(element, dfs_timer, discovery_times, finish_times, dfs_tree_parent, dfs_back_edges)
                 elif(element != dfs_tree_parent[current_verticy] and discovery_times[element] < discovery_times[current_verticy]):
                     dfs_back_edges.append((current_verticy,element))
-                    print(f'dfs_back_edges = {dfs_back_edges}')
+                    # print(f'dfs_back_edges = {dfs_back_edges}')
                     
             
             if counter == 0:
                 dfs_timer.increment()
                 finish_times[current_verticy] = dfs_timer.get() - 1
-                print(f'debug, finish_times = {finish_times}')
-                print("")
+                # print(f'debug, finish_times = {finish_times}')
+                # print("")
 
     
         # ===================================================================================================
@@ -115,11 +115,23 @@ class UndirectedGraph:
             if discovery_times[i] == None:
                 self.dfs_visit(i,dfs_timer, discovery_times, finish_times, 
                                dfs_tree_parents, dfs_back_edges)
+                print("-----------")
+                print(f'i = {i}, discovery_times  = {discovery_times} ')
+                print(f'i = {i}, finish_times     = {finish_times}')
+                print(f'i = {i}, dfs_tree_parents = {dfs_tree_parents}')
+                print(f'i = {i}, dfs_back_edges   = {dfs_back_edges}')
+
         # Clean up the back edges so that if (i,j) is a back edge then j cannot be i's parent.
         non_trivial_back_edges = [(i,j) for (i,j) in dfs_back_edges if dfs_tree_parents[i] != j]
         return (dfs_tree_parents, non_trivial_back_edges, discovery_times, finish_times)
 
+    def num_connected_components(g): # g is an UndirectedGraph class
+        # your code here
+        # -----------------------------------------
+        pass
 
+
+# ==================================================================================================
 # create the graph from problem 1A.
 g = UndirectedGraph(5)
 # print("g.n = ", g.n); print(g.adj_list); g.add_edge(0,1); print(g.adj_list); g.add_edge(0,2); print(g.adj_list)
@@ -184,3 +196,33 @@ print("===============")
 # # Filter out all trivial back eddges (i,j)  where j is simply the parent of i.
 # # such back edges occur because we are treating an undirected edge as two directed edges
 # # in either direction.
+
+print("-------------------run g undirected graph")
+
+(dfs_tree_parents, non_trivial_back_edges, discovery_times, finish_times) = g.dfs_traverse_graph()
+print(f'dfs_tree_parents = {dfs_tree_parents}')
+print(f'non_trivial_back_edges = {non_trivial_back_edges}')
+print(f'discovery_times = {discovery_times}')
+print(f'finish_times = {finish_times}')
+
+print("-------------------run g2 undirected graph")
+g2 = UndirectedGraph(7)
+g2.add_edge(0,1)
+g2.add_edge(0,2)
+g2.add_edge(0,4)
+g2.add_edge(2,3)
+g2.add_edge(2,4)
+g2.add_edge(3,4)
+g2.add_edge(5,6)
+(dfs_tree_parents, non_trivial_back_edges, discovery_times, finish_times) = g2.dfs_traverse_graph()
+
+print('---------------------run g3 undirected graph')
+g3 = UndirectedGraph(8)
+g3.add_edge(0,1)
+g3.add_edge(0,2)
+g3.add_edge(0,4)
+g3.add_edge(2,3)
+g3.add_edge(2,4)
+g3.add_edge(3,4)
+g3.add_edge(5,6)
+(dfs_tree_parents, non_trivial_back_edges, discovery_times, finish_times) = g3.dfs_traverse_graph()
