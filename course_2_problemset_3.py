@@ -72,13 +72,13 @@ class DisjointForests:
 
 # ===================================================================
 # =================================================================
-
+print("-----------------------Problem 1-----------------------------------")
 d = DisjointForests(10)
 for i in range(10):
     d.make_set(i)
 
-for i in range(10):
-    print(f'd.parents[{i}] = {d.parents[i]}, d.rank[{i}] = {d.rank[i]}')
+# for i in range(10):
+    # print(f'd.parents[{i}] = {d.parents[i]}, d.rank[{i}] = {d.rank[i]}')
 
 
 for i in range(10):
@@ -109,3 +109,56 @@ d.union(0,6)
 assert(d.find(6) == d.find(1)), '1 and 6 must be in the same set in the family'
 assert(d.find(7) == d.find(4)), '7 and 4 must be in the same set in the family'
 print('All tests passed: 10 points.')
+
+print("-----------------------Problem 2-----------------------------------")
+
+    
+class UndirectedGraph:
+    
+    # n is the number of vertices
+    # we will label the vertices from 0 to self.n -1 
+    # We simply store the edges in a list.
+    def __init__(self, n):
+        assert n >= 1, 'You are creating an empty graph -- disallowed'
+        self.n = n
+        self.edges = []
+        self.vertex_data = [None]*self.n
+       
+        
+    def set_vertex_data(self, j, dat):
+        assert 0 <= j < self.n
+        self.vertex_data[j] = dat
+        
+    def get_vertex_data(self, j):
+        assert 0 <= j < self.n
+        return self.vertex_data[j] 
+        
+    def add_edge(self, i, j, wij):
+        assert 0 <= i < self.n
+        assert 0 <= j < self.n
+        assert i != j
+        # Make sure to add edge from i to j with weight wij
+        self.edges.append((i, j, wij))
+        
+    def sort_edges(self):
+        # sort edges in ascending order of weights.
+        self.edges = sorted(self.edges, key=lambda edg_data: edg_data[2])
+
+## 2A: Use union-find data-structures to compute strongly connected components.
+"""
+We have previously seen  how to use DFS to find maximal strongly connected components with a small twist.
+
+  - We will consider only those edges $(i,j)$ whose weights are less than or equal to a threshold $W$ provided by the user.
+  - Edges with weights above this threshold are not considered.
+  
+Design an algorithm to compute all the maximal strongly connected components for all eeges with threshold $W$ using the union-find data structure. What is the running time of your algorithm. Note that this is manually graded answer : you can compare your solution against our solution provided at the end of this assignment.
+"""
+
+def compute_scc(g, W):
+    # create a disjoint forest with as many elements as number of vertices
+    # Next compute the strongly connected components using the disjoint forest data structure
+    d = DisjointForests(g.n)
+    # your code here
+    
+    # extract a set of sets from d
+    return d.dictionary_of_sets()    
