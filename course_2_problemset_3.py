@@ -112,12 +112,10 @@ d.union(0,6)
 
 assert(d.find(6) == d.find(1)), '1 and 6 must be in the same set in the family'
 assert(d.find(7) == d.find(4)), '7 and 4 must be in the same set in the family'
+assert(d.find(8) == 0), 'parent is 0'
 
 for i in range(10):
     print(f'd.parents[{i}] = {d.parents[i]}, d.rank[{i}] = {d.rank[i]}')
-
-print(f'max rank = {max(d.rank)}')
-
 
 print('All tests passed: 10 points.')
 
