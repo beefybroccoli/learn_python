@@ -119,6 +119,8 @@ assert(d.find(8) == 0), 'parent is 0'
 for i in range(10):
     print(f'd.parents[{i}] = {d.parents[i]}, d.rank[{i}] = {d.rank[i]}')
 
+print(f'd.dictionary_of_sets() return {d.dictionary_of_sets()}')
+
 print('All tests passed: 10 points.')
 
 print("-----------------------Problem 2-----------------------------------")
