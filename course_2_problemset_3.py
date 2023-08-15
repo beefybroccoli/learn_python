@@ -137,7 +137,6 @@ class UndirectedGraph:
         self.edges = []
         self.vertex_data = [None]*self.n
        
-        
     def set_vertex_data(self, j, data):
         assert 0 <= j < self.n
         self.vertex_data[j] = data
@@ -173,11 +172,27 @@ def compute_scc(g, W):
     d = DisjointForests(g.n)
     # your code here
     # ---------------------
+    # for edge in g.edges:
+    #     if edge[2] <= W:
+    #         print(f'edge = {edge}')
+
+    for index in range(g.n):
+        print(f'g.edges[{index}] = {g.edges[index]}')
+        d.make_set(index)
+        print(f'd.parents[{index}] = {d.parents[index]}, d.rank[{index}] = {d.rank[index]}')
+    
     for edge in g.edges:
         if edge[2] <= W:
-            print(f'edge = {edge}')
-        
-    
+            # print(f'edge = {edge}')
+            d.union(edge[0], edge[1])
+            index_0 = edge[0]
+            index_1 = edge[1]
+            print(f'd.parents[{index_0}] = {d.parents[index_0]}, d.rank[{index_0}] = {d.rank[index_0]}')
+            print(f'd.parents[{index_1}] = {d.parents[index_1]}, d.rank[{index_1}] = {d.rank[index_1]}')
+
+    print(f'd.dictionary_of_sets return {d.dictionary_of_sets()}')
+    return d.dictionary_of_sets()
+
     # extract a set of sets from d
     # return d.dictionary_of_sets()
     pass
@@ -192,8 +207,37 @@ g3.add_edge(3,4,1.5)
 g3.add_edge(5,6,2.0)
 g3.add_edge(5,7,2.0)
 
-# for index in range(g3.n):
-#     g3.vertex_data[index] = index
-#     print(f'vertex = {g3.vertex_data[index]}')
-
 # compute_scc(g3,2.0)
+
+res = compute_scc(g3, 2.0)
+print('SCCs with threshold 2.0 computed by your code are:')
+assert len(res) == 2, f'Expected 2 SCCs but got {len(res)}'
+for (k, s) in res.items():
+    print(s)
+
+# Let us check that your code returns what we expect.
+for (k, s) in res.items():
+    if (k in [0,1,2,3,4]):
+        assert (s == set([0,1,2,3,4])), '{0,1,2,3,4} should be an SCC'
+    if (k in [5,6,7]):
+        assert (s == set([5,6,7])), '{5,6,7} should be an SCC'
+
+
+# Let us check that the thresholding works
+print('SCCs with threshold 1.5')
+res2 = compute_scc(g3, 1.5) # This cutsoff edges 2,4 and 5, 6, 7
+for (k, s) in res2.items():
+    print(s)
+assert len(res2) == 4, f'Expected 4 SCCs but got {len(res2)}'
+
+for (k, s) in res2.items():
+    if k in [0,1,2,3,4]:
+        assert (s == set([0,1,2,3,4])), '{0,1,2,3,4} should be an SCC'
+    if k in [5]:
+        assert s == set([5]), '{5} should be an SCC with just a single node.'
+    if k in [6]:
+        assert s == set([6]), '{6} should be an SCC with just a single node.'
+    if k in [7]:
+        assert s == set([7]), '{7} should be an SCC with just a single node.'
+        
+print('All tests passed: 10 points')
