@@ -41,14 +41,16 @@ class DisjointForests:
     # nodes along path from j to the root point directly to the root.
     def find(self, j):
         assert 0 <= j < self.n
-        assert self.parents[j] != None, 'You are calling find on an element that is not part of the family yet. Please call make_set first.'
+        # assert self.parents[j] != None, 'You are calling find on an element that is not part of the family yet. Please call make_set first.'
         # your code here
         # -------------------- traverse until the parent node is found----------------------
         # if the element does not exist
         #   call makeset
-        
+        if self.parents[j] == None or self.rank[j] == None:
+            self.make_set(j)
+            return self.parents[j]
         #   base case for recursion
-        if self.parents[j] == j:
+        elif self.parents[j] == j:
             return self.parents[j]
         #   find(self, value) again until reach root node
         return self.find(self.parents[j])
@@ -81,7 +83,7 @@ class DisjointForests:
 # =================================================================
 print("-----------------------Problem 1-----------------------------------")
 d = DisjointForests(10)
-for i in range(10):
+for i in range(2,10,1):
     d.make_set(i)
 
 # for i in range(10):
