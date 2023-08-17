@@ -82,3 +82,29 @@ for key in graph.adj_list.keys():
         print(f'------tuple[0].pi = {tuple[0].pi}')
         print(f'------tuple[1] = {tuple[1]}')
         print(f'------')
+
+"""
+    dict_keys([(0, 0), (1, 0), (0, 1), (1, 1), (2, 1), (1, 2)])
+
+    --type of temp = <class 'list'>
+    --len of temp_list is 2
+    --key = (0, 0)
+    ------type = <class 'tuple'>
+    ------tuple[0].x = 0
+    ------tuple[0].y = 1
+    ------tuple[0].d = inf
+    ------tuple[0].processed = False
+    ------tuple[0].idx_in_priority_queue = -1
+    ------tuple[0].pi = None
+    ------tuple[1] = 1.0
+    ------
+    ------type = <class 'tuple'>
+    ------tuple[0].x = 1
+    ------tuple[0].y = 0
+    ------tuple[0].d = inf
+    ------tuple[0].processed = False
+    ------tuple[0].idx_in_priority_queue = -1
+    ------tuple[0].pi = None
+    ------tuple[1] = 0.5
+    ------
+"""
