@@ -52,8 +52,8 @@ class Graph():
 			# Update dist value of the adjacent vertices of the picked vertex only if the current distance is greater than new distance and the vertex in not in the shortest path tree
 			for v in range(self.V):
 				print(f'u = {u}, v = {v}')
-				print(f'if     self.graph[{u}][{v}] = {self.graph[u][v]}')
-				print(f'and if sptSet[{v}] = {sptSet[v]}')
+				print(f'if     self.graph[{u}][{v}] = {self.graph[u][v]} > 0')
+				print(f'and if sptSet[{v}] = {sptSet[v]} == False')
 				print(f'and if dist[{v}] = {dist[v]}')
 				print(f'and if self.graph[{u}][{v}] = {self.graph[u][v]}')
 				if (self.graph[u][v] > 0 and sptSet[v] == False and	dist[v] > dist[u] + self.graph[u][v]):
