@@ -20,17 +20,17 @@ class Graph():
 
 		# Search not nearest vertex not in the shortest path tree
 		for index in range(self.V):
-			print("-----")
+			print("----------")
 			print('index = {index}')
-			print(f'if     dist[{index}] = {dist[index]}')
-			print(f'and if sptSet[{index}] = {sptSet[index]}')
+			print(f'if     dist[{index}] {dist[index]} < {min}')
+			print(f'and if sptSet[{index}] {sptSet[index]} == False')
 			if dist[index] < min and sptSet[index] == False:
 				min = dist[index]
 				min_index = index
 				print(f'min = {dist[index]}')
 				print(f'min_index = {min_index}')
 				print("")
-		print(f'return index {min_index}')
+		print(f'\nreturn index {min_index}')
 		return min_index
 
 	# Function that implements Dijkstra's single source shortest path algorithm for a graph represented using adjacency matrix representation
@@ -38,28 +38,28 @@ class Graph():
 
 		dist = [1e7] * self.V
 		dist[src] = 0
-		sptSet = [False] * self.V
+		bool_list = [False] * self.V
 
 		for cout in range(self.V):
 
 			# Pick the minimum distance vertex from the set of vertices not yet processed.
 			# u is always equal to src in first iteration
-			u = self.minDistance(dist, sptSet)
+			u = self.minDistance(dist, bool_list)
 
 			# Put the minimum distance vertex in the shortest path tree
-			sptSet[u] = True
+			bool_list[u] = True
 
 			# Update dist value of the adjacent vertices of the picked vertex only if the current distance is greater than new distance and the vertex in not in the shortest path tree
 			for v in range(self.V):
+				print("-----.....")
 				print(f'u = {u}, v = {v}')
-				print(f'if     self.graph[{u}][{v}] = {self.graph[u][v]} > 0')
-				print(f'and if sptSet[{v}] = {sptSet[v]} == False')
-				print(f'and if dist[{v}] = {dist[v]}')
-				print(f'and if self.graph[{u}][{v}] = {self.graph[u][v]}')
-				if (self.graph[u][v] > 0 and sptSet[v] == False and	dist[v] > dist[u] + self.graph[u][v]):
+				print(f'if     self.graph[{u}][{v}] {self.graph[u][v]} > 0')
+				print(f'and if sptSet[{v}] {bool_list[v]} == False')
+				print(f'and if dist[{v}] {dist[v]} > self.graph[{u}][{v}] + {self.graph[u][v]}')
+				if (self.graph[u][v] > 0 and bool_list[v] == False and	dist[v] > dist[u] + self.graph[u][v]):
 					dist[v] = dist[u] + self.graph[u][v]
 					print(f'dist[{v}] = dist[{u}] + self.graph[{u}][{v}]  = {dist[u]} + {self.graph[u][v]} = {dist[u] + self.graph[u][v]}')
-				print("-----.....")
+				
 
 		self.printSolution(dist)
 		return dist
