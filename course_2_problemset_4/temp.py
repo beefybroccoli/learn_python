@@ -79,8 +79,8 @@ for key in graph.adj_list.keys():
         print(f'------tuple[0].d = {tuple[0].d}')
         print(f'------tuple[0].processed = {tuple[0].processed}')
         print(f'------tuple[0].idx_in_priority_queue = {tuple[0].idx_in_priority_queue}')
-        print(f'------tuple[0].pi = {tuple[0].pi}')
-        print(f'------tuple[1] = {tuple[1]}')
+        print(f'------tuple[0].pi (parent) = {tuple[0].pi}')
+        print(f'------tuple[1] (weight) = {tuple[1]}')
         print(f'------')
 
 """
