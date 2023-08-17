@@ -64,28 +64,6 @@ class Graph():
 		self.printSolution(accumulated_distance)
 		return accumulated_distance
 
-"""
- Here is an outline of Dijkstra's algorithm with modifications that may be useful.
- 
- ~~~
- 1. Initialize an empty priority queue `q` (use `PriorityQueue` class)
- 2. Get the source vertex (`source`) using the function `graph.get_vertex_from_coords(i,j)`.
- 3. Set the `source.d` field to 0 to indicate that distance of source from source is 0.
- 4. Add the source vertex to the priority queue (use `insert` method).
- 5. While the priority queue is not empty.
-    5.1 Get the vertex with minimum value of d and delete it (use `get_and_delete_min` function). Let's call this vertex `u`.
-    5.2 Set the processed field of `u` to True.
-    5.3 If `u` has the same coordinates as destination (use `u.x` and `u.y`) then 
-        5.3.1 shortest path distance is `u.d` and break from the loop.
-    5.4 For each outgoing edge from `u` to `v` with weight `w`
-        5.4.1 If `v` is not already processed and `v.d > u.d + w` then 
-              5.4.1.1 update `v.d` to `u.d + w`. Set `v.pi` to `u`.
-              5.4.1.2 If `v` is already not in the priority queue, insert it into the queue
-              5.4.1.3 Else, use the `update_vertex_weight` method of priority queue with `v` as the argument to make sure that `v` is moved to the appropriate place in the priority queue.
- 6. To get the path, start from the destination vertex and keep taking the parent pointer until we reach the source. Store the sequence of vertices in a path.
- 7. Return the (path, shortest path distance)
-"""
-
 # This code is contributed by Divyanshu Mehta
 n_verticies = 8
 positive_infinity = float('inf')
@@ -108,3 +86,23 @@ list_of_list = []
 for i in range(g.V):
     list_of_list.append(g.dijkstra(i))
 print(f'list_of_list = {list_of_list}' )
+
+"""
+ Here is an outline of Dijkstra's algorithm with modifications that may be useful.
+ 1. Initialize an empty priority queue `q` (use `PriorityQueue` class)
+ 2. Get the source vertex (`source`) using the function `graph.get_vertex_from_coords(i,j)`.
+ 3. Set the `source.d` field to 0 to indicate that distance of source from source is 0.
+ 4. Add the source vertex to the priority queue (use `insert` method).
+ 5. While the priority queue is not empty.
+    5.1 Get the vertex with minimum value of d and delete it (use `get_and_delete_min` function). Let's call this vertex `u`.
+    5.2 Set the processed field of `u` to True.
+    5.3 If `u` has the same coordinates as destination (use `u.x` and `u.y`) then 
+        5.3.1 shortest path distance is `u.d` and break from the loop.
+    5.4 For each outgoing edge from `u` to `v` with weight `w`
+        5.4.1 If `v` is not already processed and `v.d > u.d + w` then 
+              5.4.1.1 update `v.d` to `u.d + w`. Set `v.pi` to `u`.
+              5.4.1.2 If `v` is already not in the priority queue, insert it into the queue
+              5.4.1.3 Else, use the `update_vertex_weight` method of priority queue with `v` as the argument to make sure that `v` is moved to the appropriate place in the priority queue.
+ 6. To get the path, start from the destination vertex and keep taking the parent pointer until we reach the source. Store the sequence of vertices in a path.
+ 7. Return the (path, shortest path distance)
+"""
