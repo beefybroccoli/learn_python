@@ -59,21 +59,14 @@ connect_nodes((1,2), (2,2), 0.25)
 
 graph = DummyGraphClass(adj_list, verts)
 
-# print(f'\ngraph.verts = {graph.verts}')
 for element in graph.verts:
     print(f'virt = {element}')
 print("")
 
 print("----------------------------------------")
-print(f'type of {type(graph.adj_list)}')
-# for key in graph.adj_list.keys:
-#     print(f'adj_edge = {graph.adj_list[key]}')
+print(f'type of graph.adj_list = {type(graph.adj_list)}')
 print(graph.adj_list.keys())
 for key in graph.adj_list.keys():
-    # (temp_vertex, weight) = graph.adj_list.get(key)
-    # print(f'{graph.adj_list.get(key)}')
-    # print(f'temp_vertex = {temp_vertex}')
-    # print(f'weight = {weight}')
     temp_list = graph.adj_list.get(key)
     print(f'\n--type of temp = {type(temp_list)}')
     print(f'--len of temp_list is {len(temp_list)}')
@@ -81,13 +74,11 @@ for key in graph.adj_list.keys():
 
     for tuple in temp_list:
         print(f'------type = {type(element)}')
-        # print(f'----tuple = {tuple}')
-
-        # for element in tuple:
-        #     print(f'------element = {element}')
         print(f'------tuple[0].x = {tuple[0].x}')
         print(f'------tuple[0].y = {tuple[0].y}')
         print(f'------tuple[0].d = {tuple[0].d}')
         print(f'------tuple[0].processed = {tuple[0].processed}')
+        print(f'------tuple[0].idx_in_priority_queue = {tuple[0].idx_in_priority_queue}')
+        print(f'------tuple[0].pi = {tuple[0].pi}')
         print(f'------tuple[1] = {tuple[1]}')
         print(f'------')
