@@ -13,7 +13,7 @@ class Graph():
 		print(f'dist = {dist}')
 
 	# A utility function to find the vertex with minimum distance value, from the set of vertices not yet included in shortest path tree
-	def minDistance(self, dist, sptSet):
+	def minDistance(self, accumulated_distance, bool_list):
 
 		# Initialize minimum distance for next node
 		min = 1e7
@@ -21,13 +21,13 @@ class Graph():
 		# Search not nearest vertex not in the shortest path tree
 		for index in range(self.V):
 			print("----------")
-			print('index = {index}')
-			print(f'if     dist[{index}] {dist[index]} < {min}')
-			print(f'and if sptSet[{index}] {sptSet[index]} == False')
-			if dist[index] < min and sptSet[index] == False:
-				min = dist[index]
+			print(f'index = {index}')
+			print(f'if     accumulated_distance[{index}] {accumulated_distance[index]} < {min}')
+			print(f'and if bool_list[{index}] {bool_list[index]} == False')
+			if accumulated_distance[index] < min and bool_list[index] == False:
+				min = accumulated_distance[index]
 				min_index = index
-				print(f'min = {dist[index]}')
+				print(f'min = {accumulated_distance[index]}')
 				print(f'min_index = {min_index}')
 				print("")
 		print(f'\nreturn index {min_index}')
@@ -36,15 +36,15 @@ class Graph():
 	# Function that implements Dijkstra's single source shortest path algorithm for a graph represented using adjacency matrix representation
 	def dijkstra(self, src):
 
-		dist = [1e7] * self.V
-		dist[src] = 0
+		accumulated_distance = [1e7] * self.V
+		accumulated_distance[src] = 0
 		bool_list = [False] * self.V
 
 		for cout in range(self.V):
 
 			# Pick the minimum distance vertex from the set of vertices not yet processed.
 			# u is always equal to src in first iteration
-			u = self.minDistance(dist, bool_list)
+			u = self.minDistance(accumulated_distance, bool_list)
 
 			# Put the minimum distance vertex in the shortest path tree
 			bool_list[u] = True
@@ -54,15 +54,15 @@ class Graph():
 				print("-----.....")
 				print(f'u = {u}, v = {v}')
 				print(f'if     self.graph[{u}][{v}] {self.graph[u][v]} > 0')
-				print(f'and if sptSet[{v}] {bool_list[v]} == False')
-				print(f'and if dist[{v}] {dist[v]} > self.graph[{u}][{v}] + {self.graph[u][v]}')
-				if (self.graph[u][v] > 0 and bool_list[v] == False and	dist[v] > dist[u] + self.graph[u][v]):
-					dist[v] = dist[u] + self.graph[u][v]
-					print(f'dist[{v}] = dist[{u}] + self.graph[{u}][{v}]  = {dist[u]} + {self.graph[u][v]} = {dist[u] + self.graph[u][v]}')
+				print(f'and if bool_list[{v}] {bool_list[v]} == False')
+				print(f'and if accumulated_distance[{v}] {accumulated_distance[v]} > self.graph[{u}][{v}] {self.graph[u][v]}')
+				if (self.graph[u][v] > 0 and bool_list[v] == False and	accumulated_distance[v] > accumulated_distance[u] + self.graph[u][v]):
+					accumulated_distance[v] = accumulated_distance[u] + self.graph[u][v]
+					print(f'accumulated_distance[{v}] {accumulated_distance[v]} = accumulated_distance[{u}] + self.graph[{u}][{v}]  = {accumulated_distance[u]} + {self.graph[u][v]} = {accumulated_distance[u] + self.graph[u][v]}')
 				
 
-		self.printSolution(dist)
-		return dist
+		self.printSolution(accumulated_distance)
+		return accumulated_distance
 
 # Driver program
 # g = Graph(9)
