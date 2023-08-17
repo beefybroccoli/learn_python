@@ -96,7 +96,7 @@ for key in graph.adj_list.keys():
     ------tuple[0].processed = False
     ------tuple[0].idx_in_priority_queue = -1
     ------tuple[0].pi = None
-    ------tuple[1] = 1.0
+    ------tuple[1] = 1.0 (weight)
     ------
     ------type = <class 'tuple'>
     ------tuple[0].x = 1
@@ -105,6 +105,6 @@ for key in graph.adj_list.keys():
     ------tuple[0].processed = False
     ------tuple[0].idx_in_priority_queue = -1
     ------tuple[0].pi = None
-    ------tuple[1] = 0.5
+    ------tuple[1] = 0.5 (weight)
     ------
 """
