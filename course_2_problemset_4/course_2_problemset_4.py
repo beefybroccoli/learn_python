@@ -183,7 +183,7 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
                     #   5.4.1.2 If `v` is already not in the priority queue, insert it into the queue
                     # if each_adjacent_node[0].processed == False and ((each_adjacent_node[0].x, each_adjacent_node[0].y)) in processed_node == False:
                     
-                    if each_adjacent_node[0].processed == False:
+                    if each_adjacent_node[0].processed == False and each_adjacent_node[0].idx_in_priority_queue == -1:
                         # add to PriorityQueue
                         temp_PriorityQueue.insert(each_adjacent_node[0])
 
@@ -316,29 +316,29 @@ cv2.imwrite(directory_path + 'maze-solution.png', img)
 print(f'----------------test 3-------------------------------------')
 
 
-# img = cv2.imread(directory_path + 'maze2.JPG') # read an image from a file using opencv (cv2) library
-# cv2.circle(img,(250,470), 10, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
-# cv2.circle(img, (20,100), 10, (255,0,0), -1) # add a circle centered at (790,200) radius 10, color red (RGB: 255,0,0)
-# plt.imshow(img) # show the image on the screen 
-# plt.title('Amazing 2')
-# # plt.show()
+img = cv2.imread(directory_path + 'maze2.JPG') # read an image from a file using opencv (cv2) library
+cv2.circle(img,(250,470), 10, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
+cv2.circle(img, (20,100), 10, (255,0,0), -1) # add a circle centered at (790,200) radius 10, color red (RGB: 255,0,0)
+plt.imshow(img) # show the image on the screen 
+plt.title('Amazing 2')
+# plt.show()
 
-# img = cv2.imread(directory_path + 'maze2.JPG') # read an image from a file using opencv (cv2) library
-# p, dist = computeShortestPath(DirectedGraphFromImage(img), (250,470), (20,100))
-# assert dist <= 120.0
-# assert p[0] == (250, 470)
-# assert p[-1] == (20,100)
-# print('Passed: 10 points!')
+img = cv2.imread(directory_path + 'maze2.JPG') # read an image from a file using opencv (cv2) library
+p, dist = computeShortestPath(DirectedGraphFromImage(img), (250,470), (20,100))
+assert dist <= 120.0
+assert p[0] == (250, 470)
+assert p[-1] == (20,100)
+print('Passed: 10 points!')
 
 # drawPath(img,p)
 # plt.imshow(img) # show the image on the screen 
 # plt.title('Amazing2')
-# plt.show()
+# # plt.show()
 
 # img = cv2.imread(directory_path + 'maze3.JPG')
 # cv2.circle(img,(70,1750), 15, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
 # cv2.circle(img, (900,500), 15, (0,255,255), -1) # add a circle centered at (790,200) radius 10, color red (RGB: 255,0,0)
 # plt.imshow(img) # show the image on the screen 
 # plt.title('Amazing 3')
-# plt.show()
+# # plt.show()
 
