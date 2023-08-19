@@ -1,3 +1,5 @@
+from Vertex import *
+
 class DummyGraphClass:
     def __init__(self, adj_list, verts):
         self.verts=verts

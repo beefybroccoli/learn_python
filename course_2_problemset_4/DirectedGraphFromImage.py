@@ -1,4 +1,6 @@
-import math 
+from Vertex import *
+from DummyGraphClass import *
+
 def fixPixelValues(px):
     # convert the RGB values into floating point to avoid an overflow that will give me wrong answers
     return [ float(px[0]), float(px[1]), float(px[2]) ]   
