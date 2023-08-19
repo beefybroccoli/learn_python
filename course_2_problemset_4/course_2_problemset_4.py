@@ -82,8 +82,6 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
     # --------------------------------------------------
     # 1. Initialize an empty priority queue `q` (use `PriorityQueue` class)
     temp_PriorityQueue = PriorityQueue()
-    list_processed_node = []
-    list_added_to_queue = []
     loop_bool = True
     min_vertex_object = None
 
@@ -125,8 +123,6 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
         # print(f'debug -----------------------------------------------')
         #   5.1 Get the vertex with minimum value of d and delete it (use `get_and_delete_min` function). Let's call this vertex `u`.
         min_vertex_object = temp_PriorityQueue.get_and_delete_min()
-        temp_tuple = (min_vertex_object.x, min_vertex_object.y)
-        list_processed_node.append(temp_tuple)
         
         # print(f'debug - min_verticy = ({min_vertex_object.x}, {min_vertex_object.y}), distance = {min_vertex_object.d},{min_vertex_object.processed}, parent = {min_vertex_object.pi}')
         
@@ -140,6 +136,9 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
 
         #   5.2 Set the processed field of `u` to True.
         min_vertex_object.processed = True
+        temp_each_adjacent_node_in_grap = graph.get_vertex_from_coords(min_vertex_object.x,min_vertex_object.y)
+        temp_each_adjacent_node_in_grap.processed = True
+        
 
         #   5.3 If `u` has the same coordinates as destination (use `u.x` and `u.y`) then 
         if min_vertex_object.x == dest_coordinates[0] and min_vertex_object.y == dest_coordinates[1]:
@@ -174,9 +173,8 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
             if temp_graph_adj_list_per_key != None:
                 for each_adjacent_node in temp_graph_adj_list_per_key:
                     #   5.4.1 If `v` is not already processed and `v.d > u.d + w` then 
-                    temp_tuple = (each_adjacent_node[0].x,each_adjacent_node[0].y)
 
-                    if each_adjacent_node[0].processed == False and temp_tuple not in list_processed_node:
+                    if each_adjacent_node[0].processed == False:
                         # each_adjacent_node[0].d > min_vertex_object.d + each_adjacent_node[1]:
                         # print(f'debug, before update, tuple[0].x = ({each_adjacent_node[0].x}, {each_adjacent_node[0].y}), distance = {each_adjacent_node[0].d}, parent = {each_adjacent_node[0].pi}')
                         #   5.4.1.1 update `v.d` to `u.d + w`. Set `v.pi` to `u`
@@ -191,19 +189,12 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
                     #   5.4.1.2 If `v` is already not in the priority queue, insert it into the queue
                     # if each_adjacent_node[0].processed == False and ((each_adjacent_node[0].x, each_adjacent_node[0].y)) in processed_node == False:
                     
-                    if each_adjacent_node[0].processed == False and temp_tuple not in list_added_to_queue:
-                        # create a new Vertex object
-                        vertex_pending_insert_into_priority_queue = Vertex(each_adjacent_node[0].x, each_adjacent_node[0].y)
-                        # set distance
-                        vertex_pending_insert_into_priority_queue.d = each_adjacent_node[0].d
-                        # set parent
-                        vertex_pending_insert_into_priority_queue.pi = each_adjacent_node[0].pi
+                    if temp_each_adjacent_node_in_grap.processed == False:
                         # add to PriorityQueue
-                        temp_PriorityQueue.insert(vertex_pending_insert_into_priority_queue)
-                        list_added_to_queue.append(temp_tuple)
+                        temp_PriorityQueue.insert(temp_each_adjacent_node_in_grap)
 
                     #   5.4.1.3 Else, use the `update_vertex_weight` method of priority queue with `v` as the argument to make sure that `v` is moved to the appropriate place in the priority queue.
-                        temp_PriorityQueue.update_vertex_weight(vertex_pending_insert_into_priority_queue)
+                        temp_PriorityQueue.update_vertex_weight(temp_each_adjacent_node_in_grap)
             
             # print(f'debug - processed_node = {list_processed_node}')
     
@@ -312,7 +303,7 @@ cv2.circle(img,(5,220), 3, (255,0,0), -1) # add a circle centered at (5, 220) ra
 cv2.circle(img, (5,5), 3, (0,0,255), -1) # add a circle centered at (5,5) radius 3, color red (RGB: 0,0,255)
 plt.imshow(img) # show the image on the screen 
 plt.title('Amazing')
-plt.show()
+# plt.show()
 
 img = cv2.imread(directory_path + 'maze.png') # read an image from a file using opencv (cv2) library
 graph = DirectedGraphFromImage(img)
@@ -325,35 +316,35 @@ print('Passed: 10 points!')
 drawPath(img, p, 2)
 plt.imshow(img) # show the image on the screen 
 plt.title('Amazing')
-plt.show()
+# plt.show()
 cv2.imwrite(directory_path + 'maze-solution.png', img)
 
 print(f'----------------test 3-------------------------------------')
 
 
-img = cv2.imread(directory_path + 'maze2.JPG') # read an image from a file using opencv (cv2) library
-cv2.circle(img,(250,470), 10, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
-cv2.circle(img, (20,100), 10, (255,0,0), -1) # add a circle centered at (790,200) radius 10, color red (RGB: 255,0,0)
-plt.imshow(img) # show the image on the screen 
-plt.title('Amazing 2')
+# img = cv2.imread(directory_path + 'maze2.JPG') # read an image from a file using opencv (cv2) library
+# cv2.circle(img,(250,470), 10, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
+# cv2.circle(img, (20,100), 10, (255,0,0), -1) # add a circle centered at (790,200) radius 10, color red (RGB: 255,0,0)
+# plt.imshow(img) # show the image on the screen 
+# plt.title('Amazing 2')
+# # plt.show()
+
+# img = cv2.imread(directory_path + 'maze2.JPG') # read an image from a file using opencv (cv2) library
+# p, dist = computeShortestPath(DirectedGraphFromImage(img), (250,470), (20,100))
+# assert dist <= 120.0
+# assert p[0] == (250, 470)
+# assert p[-1] == (20,100)
+# print('Passed: 10 points!')
+
+# drawPath(img,p)
+# plt.imshow(img) # show the image on the screen 
+# plt.title('Amazing2')
 # plt.show()
 
-img = cv2.imread(directory_path + 'maze2.JPG') # read an image from a file using opencv (cv2) library
-p, dist = computeShortestPath(DirectedGraphFromImage(img), (250,470), (20,100))
-assert dist <= 120.0
-assert p[0] == (250, 470)
-assert p[-1] == (20,100)
-print('Passed: 10 points!')
-
-drawPath(img,p)
-plt.imshow(img) # show the image on the screen 
-plt.title('Amazing2')
-plt.show()
-
-img = cv2.imread(directory_path + 'maze3.JPG')
-cv2.circle(img,(70,1750), 15, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
-cv2.circle(img, (900,500), 15, (0,255,255), -1) # add a circle centered at (790,200) radius 10, color red (RGB: 255,0,0)
-plt.imshow(img) # show the image on the screen 
-plt.title('Amazing 3')
-plt.show()
+# img = cv2.imread(directory_path + 'maze3.JPG')
+# cv2.circle(img,(70,1750), 15, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
+# cv2.circle(img, (900,500), 15, (0,255,255), -1) # add a circle centered at (790,200) radius 10, color red (RGB: 255,0,0)
+# plt.imshow(img) # show the image on the screen 
+# plt.title('Amazing 3')
+# plt.show()
 
