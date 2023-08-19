@@ -182,6 +182,9 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
                         #   5.4.1.1 update `v.d` to `u.d + w`. Set `v.pi` to `u`
                         each_adjacent_node[0].d = min_vertex_object.d + each_adjacent_node[1]
                         each_adjacent_node[0].pi = (min_vertex_object.x, min_vertex_object.y)
+                        temp_each_adjacent_node_in_grap = graph.get_vertex_from_coords(each_adjacent_node[0].x,each_adjacent_node[0].y)
+                        temp_each_adjacent_node_in_grap.d = each_adjacent_node[0].d
+                        temp_each_adjacent_node_in_grap.pi = each_adjacent_node[0].pi
                         # print(f'debug, after update, tuple[0].x = ({each_adjacent_node[0].x}, {each_adjacent_node[0].y}), distance = {each_adjacent_node[0].d}, parent = {each_adjacent_node[0].pi}')
                         # print(f'debug ----')
                 
@@ -229,43 +232,23 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
     # print(f'debug - min_verticy = ({min_vertex_object.x}, {min_vertex_object.y}), distance = {min_vertex_object.d},{min_vertex_object.processed}, parent = {min_vertex_object.pi}')
     
     loop_bool = True
-    current_key_x = min_vertex_object.pi[0]
-    current_key_y = min_vertex_object.pi[1]
-    result_path = [(min_vertex_object.pi[0],min_vertex_object.pi[1]), (min_vertex_object.x, min_vertex_object.y)] + result_path
+    current_key_x = min_vertex_object.x
+    current_key_y = min_vertex_object.y
+    result_path = result_path
     while(loop_bool):
-        # print(f'debug - current_key = {current_key}')
-        # # print(f'debug - result_path = {result_path}')
-        # for key in graph.adj_list.keys():
-        #     temp_list = graph.adj_list.get(key)
-        #     # print(f'\n--type of temp = {type(temp_list)}')
-        #     # print(f'--len of temp_list is {len(temp_list)}')
-        #     # print(f'--key = {key}')
-
-        for tuple in graph.get_list_of_neighbors(Vertex(current_key_x,current_key_y)):
-            print(f'------tuple[0].x = {tuple[0].x}')
-            print(f'------tuple[0].y = {tuple[0].y}')
-            print(f'------tuple[0].d = {tuple[0].d}')
-            print(f'------tuple[0].processed = {tuple[0].processed}')
-            print(f'------tuple[0].idx_in_priority_queue = {tuple[0].idx_in_priority_queue}')
-            print(f'------tuple[0].pi (parent) = {tuple[0].pi}')
-            print(f'------tuple[1] (weight) = {tuple[1]}')
-            print(f'------')
-
-
-            if current_key_x == tuple[0].x and current_key_y == tuple[0].y:
-                if tuple[0].pi == None:
-                    loop_bool = False
-                else:
-                    result_path = [(tuple[0].pi)] + result_path
-                    current_key_x = tuple[0].pi[0]
-                    current_key_y = tuple[0].pi[0]
-                    continue
-
+        temp_vertex = graph.get_vertex_from_coords(current_key_x,current_key_y)
+        result_path = [(current_key_x, current_key_y)] + result_path
+        if temp_vertex.pi == None:
+            loop_bool = False
+        else:
+            current_key_x = temp_vertex.pi[0]
+            current_key_y = temp_vertex.pi[1]
 
     #   7. Return the (path, shortest path distance)
     return (result_path,min_vertex_object.d)
 
-# Test 1
+print(f'----------------test 1-------------------------------------')
+# # Test 1
 verts = {(i,j): Vertex(i,j) for i in range(3) for j in range(3)}
 adj_list= {}
 def connect_nodes(src, dest, weight):
@@ -321,13 +304,15 @@ assert(path3[-1] == (0,0))
 
 print('All tests passed: 15 points!')
 
+print(f'----------------test 2-------------------------------------')
+
 img = cv2.imread(directory_path + 'maze.png') # read an image from a file using opencv (cv2) library
 # you can annotate images 
 cv2.circle(img,(5,220), 3, (255,0,0), -1) # add a circle centered at (5, 220) radius 3, color red (RGB: 255,0,0)
 cv2.circle(img, (5,5), 3, (0,0,255), -1) # add a circle centered at (5,5) radius 3, color red (RGB: 0,0,255)
 plt.imshow(img) # show the image on the screen 
 plt.title('Amazing')
-# plt.show()
+plt.show()
 
 img = cv2.imread(directory_path + 'maze.png') # read an image from a file using opencv (cv2) library
 graph = DirectedGraphFromImage(img)
@@ -336,3 +321,39 @@ assert dist <= 78.1, 'Expected shortest path distance must be 78.1'
 assert p[0] == (5,220)
 assert p[-1] == (5,5)
 print('Passed: 10 points!')
+
+drawPath(img, p, 2)
+plt.imshow(img) # show the image on the screen 
+plt.title('Amazing')
+plt.show()
+cv2.imwrite(directory_path + 'maze-solution.png', img)
+
+print(f'----------------test 3-------------------------------------')
+
+
+img = cv2.imread(directory_path + 'maze2.JPG') # read an image from a file using opencv (cv2) library
+cv2.circle(img,(250,470), 10, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
+cv2.circle(img, (20,100), 10, (255,0,0), -1) # add a circle centered at (790,200) radius 10, color red (RGB: 255,0,0)
+plt.imshow(img) # show the image on the screen 
+plt.title('Amazing 2')
+# plt.show()
+
+img = cv2.imread(directory_path + 'maze2.JPG') # read an image from a file using opencv (cv2) library
+p, dist = computeShortestPath(DirectedGraphFromImage(img), (250,470), (20,100))
+assert dist <= 120.0
+assert p[0] == (250, 470)
+assert p[-1] == (20,100)
+print('Passed: 10 points!')
+
+# drawPath(img,p)
+# plt.imshow(img) # show the image on the screen 
+# plt.title('Amazing2')
+# plt.show()
+
+img = cv2.imread(directory_path + 'maze3.JPG')
+cv2.circle(img,(70,1750), 15, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
+cv2.circle(img, (900,500), 15, (0,255,255), -1) # add a circle centered at (790,200) radius 10, color red (RGB: 255,0,0)
+plt.imshow(img) # show the image on the screen 
+plt.title('Amazing 3')
+plt.show()
+
