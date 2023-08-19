@@ -345,10 +345,10 @@ assert p[0] == (250, 470)
 assert p[-1] == (20,100)
 print('Passed: 10 points!')
 
-# drawPath(img,p)
-# plt.imshow(img) # show the image on the screen 
-# plt.title('Amazing2')
-# plt.show()
+drawPath(img,p)
+plt.imshow(img) # show the image on the screen 
+plt.title('Amazing2')
+plt.show()
 
 img = cv2.imread(directory_path + 'maze3.JPG')
 cv2.circle(img,(70,1750), 15, (255,0,0), -1) # add a circle centered at (600, 70) radius 10, color red (RGB: 255,0,0)
