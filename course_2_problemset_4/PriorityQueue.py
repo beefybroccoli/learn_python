@@ -72,7 +72,7 @@ class PriorityQueue:
         n = len(self.q)
         assert n > 1
         v = self.q[1]
-        if n > 2: 
+        if n >= 2: 
             self.q[1] = self.q[n-1]
             self.q[n-1].idx_in_priority_queue = 1
             del self.q[n-1]
