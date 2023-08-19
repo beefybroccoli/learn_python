@@ -81,7 +81,10 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
     # --------------------------------------------------
     # 1. Initialize an empty priority queue `q` (use `PriorityQueue` class)
     temp_PriorityQueue = PriorityQueue()
-    processed_node = []
+    list_processed_node = []
+    list_added_to_queue = []
+    loop_bool = True
+    min_vertex_object = None
 
     # 2. Get the source vertex (`source`) using the function `graph.get_vertex_from_coords(i,j)`.
     source_vertex = graph.get_vertex_from_coords(source_coordinates[0],source_coordinates[1])
@@ -117,12 +120,12 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
     # print(f'debug --------what is in the graph object------------------- ')
 
     # 5. While the priority queue is not empty.
-    while( len(temp_PriorityQueue.q) > 1):
+    while( len(temp_PriorityQueue.q) > 1 and loop_bool):
         print(f'debug -----------------------------------------------')
         #   5.1 Get the vertex with minimum value of d and delete it (use `get_and_delete_min` function). Let's call this vertex `u`.
         min_vertex_object = temp_PriorityQueue.get_and_delete_min()
         temp_tuple = (min_vertex_object.x, min_vertex_object.y)
-        processed_node.append(temp_tuple)
+        list_processed_node.append(temp_tuple)
         
         print(f'debug - min_verticy = ({min_vertex_object.x}, {min_vertex_object.y}), distance = {min_vertex_object.d},{min_vertex_object.processed}, parent = {min_vertex_object.pi}')
         
@@ -140,7 +143,7 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
         #   5.3 If `u` has the same coordinates as destination (use `u.x` and `u.y`) then 
         if min_vertex_object.x == dest_coordinates[0] and min_vertex_object.y == dest_coordinates[1]:
             #   5.3.1 shortest path distance is `u.d` and break from the loop.
-            pass
+            loop_bool = False
         else:
             
             # print(f'debug ====================================================')
@@ -166,40 +169,98 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
 
 
         #   5.4 For each outgoing edge from `u` to `v` with weight `w`
-            for each_adjacent_node in graph.adj_list.get((min_vertex_object.x, min_vertex_object.y)):
-                #   5.4.1 If `v` is not already processed and `v.d > u.d + w` then 
-                if each_adjacent_node[0].processed == False:
-                    # each_adjacent_node[0].d > min_vertex_object.d + each_adjacent_node[1]:
-                    print(f'debug, before update, tuple[0].x = ({each_adjacent_node[0].x}, {each_adjacent_node[0].y}), distance = {each_adjacent_node[0].d}, parent = {each_adjacent_node[0].pi}')
-                    #   5.4.1.1 update `v.d` to `u.d + w`. Set `v.pi` to `u`
-                    each_adjacent_node[0].d = min_vertex_object.d + each_adjacent_node[1]
-                    each_adjacent_node[0].pi = (min_vertex_object.x, min_vertex_object.y)
-                    print(f'debug, after update, tuple[0].x = ({each_adjacent_node[0].x}, {each_adjacent_node[0].y}), distance = {each_adjacent_node[0].d}, parent = {each_adjacent_node[0].pi}')
-                    print(f'debug ----')
-            
-                #   5.4.1.2 If `v` is already not in the priority queue, insert it into the queue
-                # if each_adjacent_node[0].processed == False and ((each_adjacent_node[0].x, each_adjacent_node[0].y)) in processed_node == False:
-                temp_tuple = (each_adjacent_node[0].x,each_adjacent_node[0].y)
-                if each_adjacent_node[0].processed == False and temp_tuple not in processed_node:
-                    # create a new Vertex object
-                    vertex_pending_insert_into_priority_queue = Vertex(each_adjacent_node[0].x, each_adjacent_node[0].y)
-                    # set distance
-                    vertex_pending_insert_into_priority_queue.d = each_adjacent_node[0].d
-                    # set parent
-                    vertex_pending_insert_into_priority_queue.pi = each_adjacent_node[0].pi
-                    # add to PriorityQueue
-                    temp_PriorityQueue.insert(vertex_pending_insert_into_priority_queue)
+            temp_graph_adj_list_per_key = graph.adj_list.get((min_vertex_object.x, min_vertex_object.y))
+            if temp_graph_adj_list_per_key != None:
+                for each_adjacent_node in graph.adj_list.get((min_vertex_object.x, min_vertex_object.y)):
+                    #   5.4.1 If `v` is not already processed and `v.d > u.d + w` then 
+                    temp_tuple = (each_adjacent_node[0].x,each_adjacent_node[0].y)
 
-                #   5.4.1.3 Else, use the `update_vertex_weight` method of priority queue with `v` as the argument to make sure that `v` is moved to the appropriate place in the priority queue.
-                    temp_PriorityQueue.update_vertex_weight(vertex_pending_insert_into_priority_queue)
-            pass
+                    if each_adjacent_node[0].processed == False and temp_tuple not in list_processed_node:
+                        # each_adjacent_node[0].d > min_vertex_object.d + each_adjacent_node[1]:
+                        print(f'debug, before update, tuple[0].x = ({each_adjacent_node[0].x}, {each_adjacent_node[0].y}), distance = {each_adjacent_node[0].d}, parent = {each_adjacent_node[0].pi}')
+                        #   5.4.1.1 update `v.d` to `u.d + w`. Set `v.pi` to `u`
+                        each_adjacent_node[0].d = min_vertex_object.d + each_adjacent_node[1]
+                        each_adjacent_node[0].pi = (min_vertex_object.x, min_vertex_object.y)
+                        print(f'debug, after update, tuple[0].x = ({each_adjacent_node[0].x}, {each_adjacent_node[0].y}), distance = {each_adjacent_node[0].d}, parent = {each_adjacent_node[0].pi}')
+                        print(f'debug ----')
+                
+                    #   5.4.1.2 If `v` is already not in the priority queue, insert it into the queue
+                    # if each_adjacent_node[0].processed == False and ((each_adjacent_node[0].x, each_adjacent_node[0].y)) in processed_node == False:
+                    
+                    if each_adjacent_node[0].processed == False and temp_tuple not in list_added_to_queue:
+                        # create a new Vertex object
+                        vertex_pending_insert_into_priority_queue = Vertex(each_adjacent_node[0].x, each_adjacent_node[0].y)
+                        # set distance
+                        vertex_pending_insert_into_priority_queue.d = each_adjacent_node[0].d
+                        # set parent
+                        vertex_pending_insert_into_priority_queue.pi = each_adjacent_node[0].pi
+                        # add to PriorityQueue
+                        temp_PriorityQueue.insert(vertex_pending_insert_into_priority_queue)
+                        list_added_to_queue.append(temp_tuple)
+
+                    #   5.4.1.3 Else, use the `update_vertex_weight` method of priority queue with `v` as the argument to make sure that `v` is moved to the appropriate place in the priority queue.
+                        temp_PriorityQueue.update_vertex_weight(vertex_pending_insert_into_priority_queue)
             
-            print(f'processed_node = {processed_node}')
+            print(f'debug - processed_node = {list_processed_node}')
     
     #   6. To get the path, start from the destination vertex and keep taking the parent pointer until we reach the source. Store the sequence of vertices in a path.
+    result_path = []
     
+    print(f'debug ====================================================')
+    print(f'type of graph.adj_list = {type(graph.adj_list)}')
+    print(graph.adj_list.keys())
+    for key in graph.adj_list.keys():
+        temp_list = graph.adj_list.get(key)
+        print(f'\n--type of temp = {type(temp_list)}')
+        print(f'--len of temp_list is {len(temp_list)}')
+        print(f'--key = {key}')
+
+        for tuple in temp_list:
+            print(f'------tuple[0].x = {tuple[0].x}')
+            print(f'------tuple[0].y = {tuple[0].y}')
+            print(f'------tuple[0].d = {tuple[0].d}')
+            print(f'------tuple[0].processed = {tuple[0].processed}')
+            print(f'------tuple[0].idx_in_priority_queue = {tuple[0].idx_in_priority_queue}')
+            print(f'------tuple[0].pi (parent) = {tuple[0].pi}')
+            print(f'------tuple[1] (weight) = {tuple[1]}')
+            print(f'------')
+    print(f'debug ====================================================')
+    print(f'debug - min_verticy = ({min_vertex_object.x}, {min_vertex_object.y}), distance = {min_vertex_object.d},{min_vertex_object.processed}, parent = {min_vertex_object.pi}')
+    
+    loop_bool = True
+    current_key = (min_vertex_object.x, min_vertex_object.y)
+    result_path = [(min_vertex_object.x, min_vertex_object.y)] + result_path
+    while(loop_bool):
+        print(f'current_key = {current_key}')
+        print(f'result_path = {result_path}')
+        for key in graph.adj_list.keys():
+            temp_list = graph.adj_list.get(key)
+            # print(f'\n--type of temp = {type(temp_list)}')
+            # print(f'--len of temp_list is {len(temp_list)}')
+            # print(f'--key = {key}')
+
+            for tuple in temp_list:
+                # print(f'------tuple[0].x = {tuple[0].x}')
+                # print(f'------tuple[0].y = {tuple[0].y}')
+                # print(f'------tuple[0].d = {tuple[0].d}')
+                # print(f'------tuple[0].processed = {tuple[0].processed}')
+                # print(f'------tuple[0].idx_in_priority_queue = {tuple[0].idx_in_priority_queue}')
+                # print(f'------tuple[0].pi (parent) = {tuple[0].pi}')
+                # print(f'------tuple[1] (weight) = {tuple[1]}')
+                # print(f'------')
+
+
+                if current_key == (tuple[0].x, tuple[0].y):
+                    if tuple[0].pi == None:
+                        loop_bool = False
+                    else:
+                        result_path = [(tuple[0].pi)] + result_path
+                        current_key = tuple[0].pi
+                        continue
+
+
     #   7. Return the (path, shortest path distance)
-    return (-1,-1)
+    return (result_path,min_vertex_object.d)
 
 # Test 1
 verts = {(i,j): Vertex(i,j) for i in range(3) for j in range(3)}
@@ -225,3 +286,34 @@ connect_nodes((1,2), (2,2), 0.25)
 graph = DummyGraphClass(adj_list, verts)
 
 path, dist = computeShortestPath(graph, (0,0), (2,2))
+print(path)
+
+assert(dist == 1.25) , ' shortest path distance from (0,0) to (2,2) must be 1.25'
+assert (path == [(0,0), (1,0), (1,1), (2,2)])
+
+for (_,v) in verts.items():
+    v.reset()
+
+graph2 = DummyGraphClass(adj_list, verts)
+(path2, dist2) = computeShortestPath(graph2, (0,0),(1,2))
+print(path2)
+assert dist2 == 1.5, ' shortest path distance from (0,0) to (1,2) must be 1.5'
+assert path2[0] == (0,0)
+assert path2[-1] == (1,2)
+
+for (_,v) in verts.items():
+    v.reset()
+
+connect_nodes((2,2), (2,1), 0.5)
+connect_nodes((2,1), (1,1), 1.0)
+connect_nodes((1,1),(0,1), 0.5)
+
+
+graph3 = DummyGraphClass(adj_list, verts)
+(path3, dist3) = computeShortestPath(graph3, (2,2),(0,0))
+print(path3)
+assert(dist3 == 2.5)
+assert(path3[0]== (2,2))
+assert(path3[-1] == (0,0))
+
+print('All tests passed: 15 points!')
