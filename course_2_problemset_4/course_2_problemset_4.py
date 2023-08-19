@@ -135,10 +135,7 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
         # print("")
 
         #   5.2 Set the processed field of `u` to True.
-        min_vertex_object.processed = True
-        temp_each_adjacent_node_in_grap = graph.get_vertex_from_coords(min_vertex_object.x,min_vertex_object.y)
-        temp_each_adjacent_node_in_grap.processed = True
-        
+        min_vertex_object.processed = True        
 
         #   5.3 If `u` has the same coordinates as destination (use `u.x` and `u.y`) then 
         if min_vertex_object.x == dest_coordinates[0] and min_vertex_object.y == dest_coordinates[1]:
@@ -174,27 +171,24 @@ def computeShortestPath( graph, source_coordinates, dest_coordinates):
                 for each_adjacent_node in temp_graph_adj_list_per_key:
                     #   5.4.1 If `v` is not already processed and `v.d > u.d + w` then 
 
-                    if each_adjacent_node[0].processed == False:
+                    if each_adjacent_node[0].processed == False and each_adjacent_node[0].d > min_vertex_object.d + each_adjacent_node[1]:
                         # each_adjacent_node[0].d > min_vertex_object.d + each_adjacent_node[1]:
                         # print(f'debug, before update, tuple[0].x = ({each_adjacent_node[0].x}, {each_adjacent_node[0].y}), distance = {each_adjacent_node[0].d}, parent = {each_adjacent_node[0].pi}')
                         #   5.4.1.1 update `v.d` to `u.d + w`. Set `v.pi` to `u`
                         each_adjacent_node[0].d = min_vertex_object.d + each_adjacent_node[1]
                         each_adjacent_node[0].pi = (min_vertex_object.x, min_vertex_object.y)
-                        temp_each_adjacent_node_in_grap = graph.get_vertex_from_coords(each_adjacent_node[0].x,each_adjacent_node[0].y)
-                        temp_each_adjacent_node_in_grap.d = each_adjacent_node[0].d
-                        temp_each_adjacent_node_in_grap.pi = each_adjacent_node[0].pi
                         # print(f'debug, after update, tuple[0].x = ({each_adjacent_node[0].x}, {each_adjacent_node[0].y}), distance = {each_adjacent_node[0].d}, parent = {each_adjacent_node[0].pi}')
                         # print(f'debug ----')
                 
                     #   5.4.1.2 If `v` is already not in the priority queue, insert it into the queue
                     # if each_adjacent_node[0].processed == False and ((each_adjacent_node[0].x, each_adjacent_node[0].y)) in processed_node == False:
                     
-                    if temp_each_adjacent_node_in_grap.processed == False:
+                    if each_adjacent_node[0].processed == False:
                         # add to PriorityQueue
-                        temp_PriorityQueue.insert(temp_each_adjacent_node_in_grap)
+                        temp_PriorityQueue.insert(each_adjacent_node[0])
 
                     #   5.4.1.3 Else, use the `update_vertex_weight` method of priority queue with `v` as the argument to make sure that `v` is moved to the appropriate place in the priority queue.
-                        temp_PriorityQueue.update_vertex_weight(temp_each_adjacent_node_in_grap)
+                        temp_PriorityQueue.update_vertex_weight(each_adjacent_node[0])
             
             # print(f'debug - processed_node = {list_processed_node}')
     
