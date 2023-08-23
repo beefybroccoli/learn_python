@@ -1,4 +1,5 @@
 from math import sqrt
+from UndirectedGraph import *
 
 # You may use this function to test if a point lies inside given circle.
 def ptInCircle(x,y, circles_list):
@@ -17,21 +18,70 @@ def findPath(width, height, forbidden_circles_list):
     assert all(x <= width and x >=0 and y <= height and y >= 0 and r > 0 for (x,y,r) in forbidden_circles_list)
     # your code here
     # --------------------------------------
-    possible_paths = []
-    result_list = []
-    for i in range(width):
-        for j in range(height):
+    # append all edges to all_edges list
+    all_edges = []
+    
+    for i in range(width + 1):
+        for j in range(height + 1):
             print(f"i = {i}, j = {j}")
-            possible_paths.append((i,j))
-    print(f"debug - possible_paths = {possible_paths}")
+            all_edges.append((i,j))
+    print(f"debug - possible_paths = {all_edges}")
 
-    for each_path in possible_paths:
+    # append all possible edges to possible_edges list
+    possible_edges = []
+    for each_path in all_edges:
         temp_bool = ptInCircle(each_path[0], each_path[1], forbidden_circles_list)
-        if temp_bool == True:
-            break
         if temp_bool == False:
-            result_list.append(each_path)
-        print(f"result_list = {result_list}")
+            possible_edges.append(each_path)
+        print(f"debug - possible_edges = {possible_edges}")
+    """
+    possible edges = [(0, 0), (0, 1), (0, 3), (1, 0), (2, 0), (2, 1), (2, 3), (3, 0), (3, 1), (3, 2), (3, 3)]
+    """
+
+    g = UndirectedGraph()
+    for each_edge in possible_edges :
+        g.add_node(Node(each_edge[0], each_edge[1]))
+
+    print(f"debug - len(possible_edges) = {len(possible_edges)}")
+    print(f'debug - len(g.nodes_list) = {len(g.nodes_list)}')
+
+
+    #  # create the graph from problem 1A.
+    
+    for each_edge in possible_edges:
+        list_of_neighbor_nodes = []
+        temp_x = each_edge[0]
+        temp_y = each_edge[1]
+
+        if (temp_x + 1, temp_y) in possible_edges:
+            list_of_neighbor_nodes.append(Node(temp_x + 1,temp_y))
+
+        if (temp_x - 1, temp_y) in possible_edges: 
+            list_of_neighbor_nodes.append(Node(temp_x - 1,temp_y))
+
+        if (temp_x, temp_y + 1) in possible_edges:
+            list_of_neighbor_nodes.append(Node(temp_x, temp_y + 1))
+
+        if (temp_x, temp_y - 1) in possible_edges:
+            list_of_neighbor_nodes.append(Node(temp_x, temp_y - 1))
+        
+        g.add_edge((temp_x,temp_y), list_of_neighbor_nodes)
+        print(f'len(g.adj_list) = {len(g.adj_list)}')
+
+        for key in g.adj_list.keys():
+            print("----")
+            print(f'{key} = {g.adj_list[key]}')
+            for each_node in g.adj_list[key]:
+                print(f"each_node = ({each_node.i}, {each_node.j})")
+            print("----")
+        
+    
+    # discovery_times = [None]*len(possible_edges)
+    # finish_times = [None]*len(possible_edges)
+    # dfs_tree_parents = [None]*len(possible_edges)
+    # dfs_back_edges = []
+    # g.dfs_visit(0, DFSTimeCounter(), discovery_times, finish_times, dfs_tree_parents, dfs_back_edges )
+    # print(f"dfs_tree_parents = {dfs_tree_parents}")
 
     return None
 
