@@ -4,6 +4,9 @@ class Node:
     def __init__(self,i,j):
         self.i = i
         self.j = j
+    
+    def get_set(self):
+        return (self.i, self.j)
 
 class UndirectedGraph:
     
@@ -24,9 +27,11 @@ class UndirectedGraph:
     # get a set of all vertices that 
     # are neighbors of the
     # vertex i
-    def get_neighboring_vertices(self, i):
-        assert 0 <= i < self.n
-        return self.adj_list[i]
+    def get_neighboring_vertices(self, node):
+        temp_tuple = tuple(node.get_set())
+        print(f'debug - type of temp_tuple = {temp_tuple}')
+        print("")
+        return self.adj_list[temp_tuple]
     
     # Function: dfs_visit
     # Program a DFS visit of a graph.

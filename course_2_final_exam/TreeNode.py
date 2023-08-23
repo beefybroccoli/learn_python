@@ -1,3 +1,8 @@
+"""
+TreeNode class
+    insert
+"""
+
 class TreeNode:
     # Constructor for tree nodde
     def __init__(self, key, parent_node=None):

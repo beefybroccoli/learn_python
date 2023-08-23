@@ -68,19 +68,27 @@ def findPath(width, height, forbidden_circles_list):
         g.add_edge((temp_x,temp_y), list_of_neighbor_nodes)
         print(f'len(g.adj_list) = {len(g.adj_list)}')
 
-        for key in g.adj_list.keys():
-            print("----")
-            print(f'{key} = {g.adj_list[key]}')
-            for each_node in g.adj_list[key]:
-                print(f"each_node = ({each_node.i}, {each_node.j})")
-            print("----")
-        
+    for key in g.adj_list.keys():
+        print("----")
+        print(f'type of key = {type(key)}')
+        print(f'{key} = {g.adj_list[key]}')
+        for each_node in g.adj_list[key]:
+            print(f"each_node = ({each_node.i}, {each_node.j})")
+        print("----")
     
-    # discovery_times = [None]*len(possible_edges)
-    # finish_times = [None]*len(possible_edges)
-    # dfs_tree_parents = [None]*len(possible_edges)
-    # dfs_back_edges = []
-    # g.dfs_visit(0, DFSTimeCounter(), discovery_times, finish_times, dfs_tree_parents, dfs_back_edges )
+    for each_node in g.nodes_list:
+        print("~~~~")
+        print(f'each_node = {each_node.get_set()}')
+        print(g.get_neighboring_vertices(each_node))
+        for each_adjacent_node in g.get_neighboring_vertices(each_node):
+            print(f"each_adjacent_node = {each_adjacent_node.get_set()}")
+        print("~~~~")
+    
+    discovery_times = [None]*len(possible_edges)
+    finish_times = [None]*len(possible_edges)
+    dfs_tree_parents = [None]*len(possible_edges)
+    dfs_back_edges = []
+    # g.dfs_visit(g.nodes_list[0], DFSTimeCounter(), discovery_times, finish_times, dfs_tree_parents, dfs_back_edges )
     # print(f"dfs_tree_parents = {dfs_tree_parents}")
 
     return None
