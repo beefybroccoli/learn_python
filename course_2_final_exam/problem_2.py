@@ -29,20 +29,21 @@ def sumOfBranches(root_node):
         if current_node.left == None and current_node.right == None:
             leaf_node.append(current_node)
         
-        print(f'debug - current_node = {current_node.key}')
-        for element in queue:
-            print(f'debug - element = {element.key}')
-        print("debug - ---------------")
+        # print(f'debug - current_node = {current_node.key}')
+        # for element in queue:
+        #     print(f'debug - element = {element.key}')
+        # print("debug - ---------------")
     
-    for element in leaf_node:
-        if element.parent != None:
-            print(f'debug - leaf node = {element.key}, parent = {element.parent.key}')
-        else:
-            print(f'debug - leaf node = {element.key}, parent = None')
+    # # #debug only
+    # for element in leaf_node:
+    #     if element.parent != None:
+    #         print(f'debug - leaf node = {element.key}, parent = {element.parent.key}')
+    #     else:
+    #         print(f'debug - leaf node = {element.key}, parent = None')
     
     result_list = []
     for index in range(len(leaf_node)-1, -1, -1):
-        print(f'leaf_node[{index}].key = {leaf_node[index].key }')
+        # print(f'debug - leaf_node[{index}].key = {leaf_node[index].key }')
         result_list.append(sum_branch(leaf_node[index]))
     
     return result_list
