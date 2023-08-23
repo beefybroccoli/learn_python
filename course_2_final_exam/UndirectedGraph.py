@@ -5,6 +5,8 @@ class Node:
         self.i = i
         self.j = j
         self.parent = None
+        self.visited = False
+        self.inQueue = False
     
     def get_set(self):
         return (self.i, self.j)
@@ -34,6 +36,51 @@ class UndirectedGraph:
         # print("")
         return self.adj_list[temp_tuple]
     
+    def get_pointer(self, i,j):
+        print(f'debug -, i = {i}, j = {j}')
+        for each_node in self.nodes_list:
+            if each_node.i == i and each_node.j == j:
+                return each_node
+    def bfs(self):
+        # create lists
+        visited_node = []
+        queue = []
+
+        # set the first node's parent to None
+        self.nodes_list[0].parent = None
+
+        # append first node to queue
+        queue.append(self.nodes_list[0])
+
+        while(len(queue) > 0):
+            # get the first node from queue
+            current_node = queue[0]
+            current_node.visited = True
+
+            # add current_node to visited node
+            visited_node.append(current_node)
+
+            # delete first node from queue
+            # print(f'debug - before, len(queue) = {len(queue)}')
+            queue = queue[1:]
+            # print(f'debug - after, len(queue) = {len(queue)}')
+            
+            print(f'debug - len(visited_node) = {len(visited_node)}')
+            print(f'debug - current_node = {current_node.get_set()}')
+            
+            # print(f'debug - self.get_neighboring_vertices(current_node) return {type(self.get_neighboring_vertices(current_node))}')
+
+            for each_adjacent_node in self.get_neighboring_vertices(current_node):
+                pointer = self.get_pointer(each_adjacent_node.i, each_adjacent_node.j)
+
+                if pointer.visited == False and pointer.inQueue == False:
+                    print(f'pointer.get_set() = - {pointer.get_set()}')
+                    pointer.parent = current_node
+                    pointer.inQueue = True
+                    queue.append(each_adjacent_node)
+            print("-----------------")
+        
+    
     # Function: dfs_visit
     # Program a DFS visit of a graph.
     # We maintain a list of discovery times and finish times.
@@ -57,7 +104,6 @@ class UndirectedGraph:
     #                       but not finished j
     
     def dfs_visit(self, i, dfs_timer, discovery_times, finish_times, dfs_tree_parent, dfs_back_edges):
-        assert 0 <= i < self.n
         assert discovery_times[i] == None
         assert finish_times[i] == None
         discovery_times[i] = dfs_timer.get()
@@ -70,7 +116,7 @@ class UndirectedGraph:
         # create a set_visited = {}
         visited = []
         # add root to into FIFO stack
-        stack.append(i)
+        stack.append(self.nodes_list[i])
 
         debug_counter = 0
 
@@ -88,21 +134,17 @@ class UndirectedGraph:
             #   add adjacent_verticies into stack
             #       if elemnt_adjacent_verticy not in stack
             #           add element_adjacent_verticy into stack
-            temp_children = list(self.get_neighboring_vertices(current_verticy))
-            temp_children.sort(reverse=True)
-            print("debug, temp_children = ", temp_children)
-            temp_count_of_new_child = 0
-            for element in temp_children:
+            list_adjacent_nodes = self.get_neighboring_vertices(current_verticy)
+
+            for each_adjacent_node in list_adjacent_nodes:
                 # if current_verticy in visited and element in visited:
                 #     dfs_back_edges.append(current_verticy)
                 #     dfs_back_edges.append(element)
-                print(f'edge - {(current_verticy,element)}')
+                print(f'edge - {(current_verticy,each_adjacent_node)}')
 
                 print("debug, edge ")
-                if element not in visited and element not in stack:
-                    stack.append(element)
-                    temp_count_of_new_child = temp_count_of_new_child + 1
-
+                if each_adjacent_node not in visited and each_adjacent_node not in stack:
+                    stack.append(each_adjacent_node)
         
             print("debug, stack = ", stack)
             # print("debug len(stack) = ", len(stack))
@@ -116,7 +158,7 @@ class UndirectedGraph:
                 
             #   else temp_verticy in set_visited
             #       set finish time in finish_times[i]
-            if len(temp_children) == 1 and temp_count_of_new_child == 0 and finish_times[current_verticy] == None:
+            if finish_times[current_verticy] == None:
                 dfs_timer.increment()
                 finish_times[current_verticy] = dfs_timer.get()
                 
