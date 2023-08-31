@@ -36,50 +36,68 @@ def check_sum_exists(a, b, c, n):
     # print("coeffs_copy= ", coeffs_copy)
     # use the result to solve the problem at hand
     # your code here
-    # ------------------------------------------------------------
-    for index in a:
-        a_coeffs[index] = 1
-    for index in b:
-        b_coeffs[index] = 1
-    a_multiply_b = polynomial_multiply(a_coeffs,b_coeffs)
-    print(f'a_coeffs = {a_coeffs}')
-    print(f'b_coeffs = {b_coeffs}')
-    print(f'a_multiply_b = {a_multiply_b}')
-    print(f'len of a_multiply_b = {len(a_multiply_b)}')
-    print(f'c = {c}')
-    return None
-    # return True/False
+    # ----------------------procedure-------------------------
+    # # procedure code, run time is theta(n * n)
+    # for index in a:
+    #     a_coeffs[index] = 1
+    # for index in b:
+    #     b_coeffs[index] = 1
+    # a_multiply_b = polynomial_multiply(a_coeffs,b_coeffs)
+    # # print(f'a_coeffs = {a_coeffs}')
+    # # print(f'b_coeffs = {b_coeffs}')
+    # # print(f'a_multiply_b = {a_multiply_b}')
+    # # print(f'len of a_multiply_b = {len(a_multiply_b)}')
+    # # print(f'c = {c}')
+    # for element in c:
+    #     if a_multiply_b[element] > 0:
+    #         return True
+    # return False
+    # ---------------------recursive-----------------------------
+    
+    if len(a) == 1 :
+        for index in a:
+            a_coeffs[index] = 1
+        for index in b:
+            b_coeffs[index] = 1
+        a_multiply_b = polynomial_multiply(a_coeffs,b_coeffs)
+        # print(f'a_coeffs = {a_coeffs}')
+        # print(f'b_coeffs = {b_coeffs}')
+        # print(f'a_multiply_b = {a_multiply_b}')
+        # print(f'len of a_multiply_b = {len(a_multiply_b)}')
+        # print(f'c = {c}')
+        for element in c:
+            if a_multiply_b[element] > 0:
+                return True
+        return False
+    else:
+        mid = len(a)//2
+        return check_sum_exists(list(a)[0:mid], list(b)[0:mid], c, n) or check_sum_exists(list(a)[mid:], list(b)[mid:], c, n) or check_sum_exists(list(a)[0:mid], list(b)[mid:], c, n) or check_sum_exists(list(a)[mid:], list(b)[0:mid], c, n)
 
-
-print('-- Test 1 --')
-a = set([1, 2, 10, 11])
-b = set([2, 5, 8, 10])
-c = set([1, 2, 5,  8])
-print(f'check_sum_exists(a, b, c, 12) return {check_sum_exists(a, b, c, 12)}\n')
+# print('-- Test 1 --')
+# a = set([1, 2, 10, 11])
+# b = set([2, 5, 8, 10])
+# c = set([1, 2, 5,  8])
+# print(f'check_sum_exists(a, b, c, 12) return {check_sum_exists(a, b, c, 12)}')
 # assert not check_sum_exists(a, b, c, 12), f'Failed Test 1: your code returned true when the expected answer is false'
-# print('Passed')
 
 print('-- Test 2 --')
 a = set([1, 2, 10, 11])
 b = set([2, 5, 8, 10])
 c = set([1, 2, 5,  8, 11])
-print(f'check_sum_exists(a, b, c, 12) return {check_sum_exists(a, b, c, 12)}\n')
-# assert check_sum_exists(a, b, c, 12), f'Failed Test 2: your code returns false but note that 1 in a + 10 in b = 11 in c '
-# print('Passed')
+print(f'check_sum_exists(a, b, c, 12) return {check_sum_exists(a, b, c, 12)}')
+assert check_sum_exists(a, b, c, 12), f'Failed Test 2: your code returns false but note that 1 in a + 10 in b = 11 in c '
 
-# print('-- Test 3 --')
-# print(len({1, 4, 5, 7, 11, 13, 14, 15, 17, 19, 22, 23, 24, 28, 34, 35, 37, 39, 42, 44}))
-# a={1, 4, 5, 7, 11, 13, 14, 15, 17, 19, 22, 23, 24, 28, 34, 35, 37, 39, 42, 44}
-# b={0, 1, 4, 9, 10, 11, 12, 15, 18, 20, 25, 31, 34, 36, 38, 40, 43, 44, 47, 49}
-# c={3, 4, 5, 7, 8, 10, 19, 20, 21, 24, 31, 35, 36, 37, 38, 39, 42, 44, 46, 49}
-# print(f'check_sum_exists(a, b, c, 50) return {check_sum_exists(a, b, c, 50)}\n')
-# assert check_sum_exists(a, b, c, 50), f'Failed Test 3: your code returns False whereas the correct answer is true eg., 4 + 0 = 4'
+print('-- Test 3 --')
+a={1, 4, 5, 7, 11, 13, 14, 15, 17, 19, 22, 23, 24, 28, 34, 35, 37, 39, 42, 44}
+b={0, 1, 4, 9, 10, 11, 12, 15, 18, 20, 25, 31, 34, 36, 38, 40, 43, 44, 47, 49}
+c={3, 4, 5, 7, 8, 10, 19, 20, 21, 24, 31, 35, 36, 37, 38, 39, 42, 44, 46, 49}
+print(f'check_sum_exists(a, b, c, 50) return {check_sum_exists(a, b, c, 50)}')
+assert check_sum_exists(a, b, c, 50), f'Failed Test 3: your code returns False whereas the correct answer is true eg., 4 + 0 = 4'
 
-# print('-- Test 4 --')
+print('-- Test 4 --')
+a={98, 2, 99, 40, 77, 79, 87, 88, 89, 27}
+b={64, 66, 35, 69, 70, 40, 76, 45, 12, 60}
+c={36, 70, 10, 44, 15, 16, 83, 20, 84, 55}
+assert not check_sum_exists(a, b, c, 100), f'Failed Test 4: your code returns True whereas the correct answer is False'
 
-# a={98, 2, 99, 40, 77, 79, 87, 88, 89, 27}
-# b={64, 66, 35, 69, 70, 40, 76, 45, 12, 60}
-# c={36, 70, 10, 44, 15, 16, 83, 20, 84, 55}
-# assert not check_sum_exists(a, b, c, 100), f'Failed Test 4: your code returns True whereas the correct answer is False'
-
-# print('All Tests Passed (15 points)!')
+print('All Tests Passed (15 points)!')
