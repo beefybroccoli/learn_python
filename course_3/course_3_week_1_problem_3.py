@@ -57,14 +57,11 @@ def check_sum_exists(a, b, c, n):
     if len(a) == 1 :
         for index in a:
             a_coeffs[index] = 1
+        
         for index in b:
             b_coeffs[index] = 1
         a_multiply_b = polynomial_multiply(a_coeffs,b_coeffs)
-        # print(f'a_coeffs = {a_coeffs}')
-        # print(f'b_coeffs = {b_coeffs}')
-        # print(f'a_multiply_b = {a_multiply_b}')
-        # print(f'len of a_multiply_b = {len(a_multiply_b)}')
-        # print(f'c = {c}')
+        
         for element in c:
             if a_multiply_b[element] > 0:
                 return True
