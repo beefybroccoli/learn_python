@@ -70,12 +70,12 @@ def check_sum_exists(a, b, c, n):
         mid = len(a)//2
         return check_sum_exists(list(a)[0:mid], list(b)[0:mid], c, n) or check_sum_exists(list(a)[mid:], list(b)[mid:], c, n) or check_sum_exists(list(a)[0:mid], list(b)[mid:], c, n) or check_sum_exists(list(a)[mid:], list(b)[0:mid], c, n)
 
-# print('-- Test 1 --')
-# a = set([1, 2, 10, 11])
-# b = set([2, 5, 8, 10])
-# c = set([1, 2, 5,  8])
-# print(f'check_sum_exists(a, b, c, 12) return {check_sum_exists(a, b, c, 12)}')
-# assert not check_sum_exists(a, b, c, 12), f'Failed Test 1: your code returned true when the expected answer is false'
+print('-- Test 1 --')
+a = set([1, 2, 10, 11])
+b = set([2, 5, 8, 10])
+c = set([1, 2, 5,  8])
+print(f'check_sum_exists(a, b, c, 12) return {check_sum_exists(a, b, c, 12)}')
+assert not check_sum_exists(a, b, c, 12), f'Failed Test 1: your code returned true when the expected answer is false'
 
 print('-- Test 2 --')
 a = set([1, 2, 10, 11])
