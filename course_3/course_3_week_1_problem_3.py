@@ -21,10 +21,10 @@ def check_sum_exists(a, b, c, n):
     # a_coeffs and b_coeffs should contain the result
         
     # multiply them together
-    print ("a_coeffs . ", a_coeffs)
-    print ("b_coeffs . ", b_coeffs)
+    # print ("a_coeffs . ", a_coeffs)
+    # print ("b_coeffs . ", b_coeffs)
     c_coeffs = polynomial_multiply(a_coeffs, b_coeffs)
-    print("Co-efficients of the testcase are")
+    # print("Co-efficients of the testcase are")
     coeffs_copy = []
     for num in c_coeffs:
         if(abs(num-0) < abs(num-1)):
@@ -33,14 +33,19 @@ def check_sum_exists(a, b, c, n):
             coeffs_copy.append(1)
         else:
             coeffs_copy.append(2)
-    print("coeffs_copy= ", coeffs_copy)
+    # print("coeffs_copy= ", coeffs_copy)
     # use the result to solve the problem at hand
     # your code here
     # ------------------------------------------------------------
-    a_multiply_b = polynomial_multiply(list(a),list(b))
-    print(f'a = {a}')
-    print(f'b = {b}')
+    for index in a:
+        a_coeffs[index] = 1
+    for index in b:
+        b_coeffs[index] = 1
+    a_multiply_b = polynomial_multiply(a_coeffs,b_coeffs)
+    print(f'a_coeffs = {a_coeffs}')
+    print(f'b_coeffs = {b_coeffs}')
     print(f'a_multiply_b = {a_multiply_b}')
+    print(f'len of a_multiply_b = {len(a_multiply_b)}')
     print(f'c = {c}')
     return None
     # return True/False
@@ -63,7 +68,7 @@ print(f'check_sum_exists(a, b, c, 12) return {check_sum_exists(a, b, c, 12)}\n')
 # print('Passed')
 
 # print('-- Test 3 --')
-print(len({1, 4, 5, 7, 11, 13, 14, 15, 17, 19, 22, 23, 24, 28, 34, 35, 37, 39, 42, 44}))
+# print(len({1, 4, 5, 7, 11, 13, 14, 15, 17, 19, 22, 23, 24, 28, 34, 35, 37, 39, 42, 44}))
 # a={1, 4, 5, 7, 11, 13, 14, 15, 17, 19, 22, 23, 24, 28, 34, 35, 37, 39, 42, 44}
 # b={0, 1, 4, 9, 10, 11, 12, 15, 18, 20, 25, 31, 34, 36, 38, 40, 43, 44, 47, 49}
 # c={3, 4, 5, 7, 8, 10, 19, 20, 21, 24, 31, 35, 36, 37, 38, 39, 42, 44, 46, 49}
