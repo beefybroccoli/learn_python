@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from datetime import date
+import os
 
 print("hello world")
 s1 = pd.Series(np.arange(0,5))
@@ -118,3 +119,34 @@ things = pd.Series(['orange','car','monitor'], index=['A','B','C'])
 dataframe_3 = pd.DataFrame([people, places, things])
 print(f'dataframe_3 = \n{dataframe_3}')
 print("")
+
+np.random.seed(2)
+array_1 = np.random.choice(['A','B','C','D','F'], 100, p=[0.2, 0.4, 0.3, 0.08, 0.02])
+array_2 = np.random.choice(['AA','BB','CC','DD','FF'], 50, p=[0.3, 0.4, 0.2, 0.1, 0])
+array_3 = np.random.choice(['a','b','c','d','f'], 100, p=[0.2, 0.4, 0.3, 0.08, 0.02])
+s1 = pd.Series(array_1)
+s2 = pd.Series(array_2)
+s3 = pd.Series(array_3)
+dataframe_5 = pd.concat([s1,s2,s3], axis=1)
+dataframe_5.columns = ['grade_1','grade_2','grade_2']
+print(f'dataframe_5 = \n{dataframe_5}')
+print("")
+
+directory = os.getcwd()
+print(f'directory = {directory}')
+file_path = directory+'\\files\\ds_salaries.csv'
+print(f'file_path = {file_path}')
+dataframe = pd.read_csv(file_path, encoding='utf-8')
+print(f'dataframe = {dataframe}')
+print(f'dataframe.columns = {dataframe.columns}')
+print(f'dataframe.index = {dataframe.index}')
+print(f'dataframe.shape = {dataframe.shape}')
+print(f'dataframe.head() return \n{dataframe.head()}')
+print(f'dataframe.tail() return \n{dataframe.tail()}')
+print(f'dataframe.describe() return \n{dataframe.describe()}')
+print(f'dataframe.info() return \n{dataframe.info()}')
+print(f"dataframe['salary'] return \n{dataframe['salary']}")
+print(f'dataframe.salary return \n{dataframe.salary}')
+print(f"dataframe['salary','job_title'] return \n{dataframe[['salary','job_title']]}")
+print("")
+
