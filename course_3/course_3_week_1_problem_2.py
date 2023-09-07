@@ -47,8 +47,8 @@ def polynomial_multiply(a_coeff_list, b_coeff_list):
     return list(map(lambda x : round(x), inverse_result_multiply_list))
 
 def check_poly(lst1, lst2):
-    # print(f'Your code found: {lst1}')
-    # print(f'Expected:        {lst2}')
+    print(f'Your code found: {lst1}')
+    print(f'Expected:        {lst2}')
     assert(len(lst1) == len(lst2)), 'Lists have different lengths'
     for (k,j) in zip(lst1, lst2):
         assert abs(k-j)<= 1E-05, 'Polynomials do not match'
