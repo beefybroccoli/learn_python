@@ -98,4 +98,23 @@ print("-------")
 print(f'letter_grades.loc[:50] = {letter_grades.loc[:5]}')
 print("-------")
 print(f'letter_grades.iloc[:50] = {letter_grades.iloc[:5]}')
+print("---------")
+letter_grades.columns = ['Grade']
+print(f'letter_grades = \n{letter_grades}')
 
+dataframe_1 = pd.DataFrame(np.array([[1,2,3],[4,5,6],[7,8,9]]))
+dataframe_1.columns = ['A','B','C']
+dataframe_1.index = ['A','B','C']
+print(f'dataframe_1 = \n{dataframe_1}')
+print("")
+
+dataframe_2 = pd.DataFrame(np.array([[1,2,3],[4,5,6],[7,8,9]]), columns=['A','B','C'],index=['AA','BB','CC'])
+print(f'dataframe_2 = \n{dataframe_2}')
+print("")
+
+people = pd.Series(['tom','mason','susan','john'], index=['A','B','C','D'])
+places = pd.Series(['CA','TX','OK'], index=['A','B','C'])
+things = pd.Series(['orange','car','monitor'], index=['A','B','C'])
+dataframe_3 = pd.DataFrame([people, places, things])
+print(f'dataframe_3 = \n{dataframe_3}')
+print("")
