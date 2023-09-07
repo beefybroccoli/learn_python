@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from datetime import date
 import os
+import random
 
 print("hello world")
 s1 = pd.Series(np.arange(0,5))
@@ -163,5 +164,12 @@ directory = os.getcwd()
 print(f'directory = {directory}')
 file_path = directory+'\\files\\Spotify_Youtube.csv'
 print(f'file_path = {file_path}')
-dataframe = pd.read_csv(file_path, encoding='utf-8')
+dataframe = pd.read_csv(file_path, encoding='utf-8', skiprows=2)
 print(f'dataframe = {dataframe}')
+print(f'dataframe.info() = {dataframe.info()}')
+print(f'dataframe.shape = {dataframe.shape}')
+print(f'dataframe.shape.tail() return \n{dataframe.tail()}')
+needed_cols = ['Artist','Track','Stream']
+print(f'dataframe.loc[:, needed_cols] return\n{dataframe.loc[:, needed_cols]}')
+print(f'dataframe.loc[[i for i in range(5,10,1)], needed_cols] return\n{dataframe.loc[[i for i in range(5,10,1)], needed_cols]}')
+print(f'dataframe.loc[[i for i in range(5,10,1)], needed_cols] return\n{dataframe.loc[random.sample(range(0,len(dataframe)),3), needed_cols]}')
