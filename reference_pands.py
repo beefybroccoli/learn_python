@@ -137,6 +137,8 @@ print(f'directory = {directory}')
 file_path = directory+'\\files\\ds_salaries.csv'
 print(f'file_path = {file_path}')
 dataframe = pd.read_csv(file_path, encoding='utf-8')
+EID = ['EID' + str(i) for i in range(100, len(dataframe) + 100)]
+# dataframe.index = EID # ?????????????????
 print(f'dataframe = {dataframe}')
 print(f'dataframe.columns = {dataframe.columns}')
 print(f'dataframe.index = {dataframe.index}')
@@ -148,5 +150,12 @@ print(f'dataframe.info() return \n{dataframe.info()}')
 print(f"dataframe['salary'] return \n{dataframe['salary']}")
 print(f'dataframe.salary return \n{dataframe.salary}')
 print(f"dataframe['salary','job_title'] return \n{dataframe[['salary','job_title']]}")
+print(f"dataframe.loc[0] return \n{dataframe.loc[0]}")
+print(f"dataframe.loc[0:5] return \n{dataframe.loc[0:5]}")
+print(f"dataframe.iloc[0] return \n{dataframe.iloc[0]}")
+print(f"dataframe.iloc[0:10] return \n{dataframe.iloc[0:10]}")
+print(f"dataframe.iloc[0,3,5] return \n{dataframe.iloc[[0,3,5]]}")
+print(f"dataframe.iloc[0:10][['salary']] return \n{dataframe.iloc[0:10][['salary']]}")
+print(f"dataframe[['salary']].iloc[:5] return \n{dataframe[['salary']].iloc[:5]}")
 print("")
 
