@@ -71,3 +71,31 @@ print("")
 dies1 = pd.Series(np.random.randint(1,7, (100,)))
 dies2 = pd.Series(np.random.randint(1,7, (100,)))
 print(f'dies1 == dies2 return {dies1 == dies2}')
+print("")
+
+def convert_to_letter(grade):
+    if grade >= 90:
+        return 'A'
+    elif grade >= 80:
+        return 'B'
+    elif grade >= 70:
+        return 'C'
+    elif grade >= 65:
+        return 'D'
+    else:
+        return 'F'
+
+np.random.seed(1)
+exam_grades = pd.Series(np.random.randint(60,101,100))
+print(f'exam_grades = {exam_grades}')
+curved_grades = exam_grades.multiply(1.05)
+print("-------")
+print(f'curved_grades = {curved_grades}')
+print("-------")
+letter_grades = curved_grades.apply(convert_to_letter)
+print(f'letter_grades = {letter_grades}')
+print("-------")
+print(f'letter_grades.loc[:50] = {letter_grades.loc[:5]}')
+print("-------")
+print(f'letter_grades.iloc[:50] = {letter_grades.iloc[:5]}')
+
