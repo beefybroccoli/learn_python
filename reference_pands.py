@@ -159,3 +159,9 @@ print(f"dataframe.iloc[0:10][['salary']] return \n{dataframe.iloc[0:10][['salary
 print(f"dataframe[['salary']].iloc[:5] return \n{dataframe[['salary']].iloc[:5]}")
 print("")
 
+directory = os.getcwd()
+print(f'directory = {directory}')
+file_path = directory+'\\files\\Spotify_Youtube.csv'
+print(f'file_path = {file_path}')
+dataframe = pd.read_csv(file_path, encoding='utf-8')
+print(f'dataframe = {dataframe}')
