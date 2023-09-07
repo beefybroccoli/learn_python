@@ -50,7 +50,12 @@ print(f'second column = {dimensions_array[0:len(dimensions_array),1]}')
 print(f'third column = {dimensions_array[0:len(dimensions_array),2]}')
 print(f'type(dimensions_array)    return {type(dimensions_array)}')
 print(f'np.size(dimensions_array) return {np.size(dimensions_array)}')
+print(f'dimensions_array.shape    return {dimensions_array.shape}') # shape 
 print(f'dimensions_array.ndim     return {dimensions_array.ndim}') # n dimension
 print(f'dimensions_array.dtype    return {dimensions_array.dtype}') # type of value
 print(f'dimensions_array + [1,1,1] return {dimensions_array + [1,1,1]}')
 
+# create arrays using zeros
+array = np.zeros(shape=(3,2),dtype=float)
+print(f'\narray = {array}')
+print(f'np.reshape(array, (2,3)) return {np.reshape(array, (2,3))}')
