@@ -40,14 +40,17 @@ print(f'arr_floats.max() return {arr_floats.max()}')
 print(f'arr_floats.min() return {arr_floats.min()}')
 
 dimensions_array = np.array([[1,2,3],[4,5,6],[7,8,9]])
-print(f'\ndimensions_array.ndim return {dimensions_array.ndim}')
+print(f'\ndimensions_array = {dimensions_array[0:len(dimensions_array)]}')
+print(f'dimensions_array.ndim return {dimensions_array.ndim}')
 print(f'first row = {dimensions_array[0]}')
 print(f'second row = {dimensions_array[1]}')
 print(f'third row  ={dimensions_array[2]}')
-print(f'first column = {dimensions_array[0:3,0]}')
-print(f'second column = {dimensions_array[0:3,1]}')
-print(f'third column = {dimensions_array[0:3,2]}')
+print(f'first column = {dimensions_array[0:len(dimensions_array),0]}')
+print(f'second column = {dimensions_array[0:len(dimensions_array),1]}')
+print(f'third column = {dimensions_array[0:len(dimensions_array),2]}')
 print(f'type(dimensions_array)    return {type(dimensions_array)}')
 print(f'np.size(dimensions_array) return {np.size(dimensions_array)}')
 print(f'dimensions_array.ndim     return {dimensions_array.ndim}') # n dimension
 print(f'dimensions_array.dtype    return {dimensions_array.dtype}') # type of value
+print(f'dimensions_array + [1,1,1] return {dimensions_array + [1,1,1]}')
+
